@@ -4,6 +4,24 @@ title: LLMs
 tags: ai
 ---
 
+# 2025-06-04
+
+Small update: I'd presently describe my outlook as sceptical. I go in
+cycles, of long troughs of scepticism, with very, very, brief
+(one-day), widely spread out, spikes of FOMO and belief that AI is an
+existential situation for software developers (see previous 2025-04-18
+thought dump). But those are becoming more infrequent. I think I see
+which way the trend for me is going.
+
+Having cut out the final vestige of social media (RSS feeds; BazQux)
+from sheer disinterest, and digital devices in the evening entirely, I
+am also serene and a little bored by the whole thing. But it still
+does play on the minds of some friends.
+
+I might change my mind on the next update, we'll see.
+
+# 2025-04-18
+
 I've been collecting thoughts on LLMs in a peacemeal way. I add to this document from time to time. It's not an article as such.
 
 * Hype: On forums like HN people have long, familiar, arguments about whether AI is hyped or not.
