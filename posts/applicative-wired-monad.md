@@ -33,9 +33,9 @@ Then it’s easy to either run it as a regular action (by interpreting Value as 
 or graph it out or batch it as needed.  Works for SQL DBs (e.g. Rel8), build systems or FRP (e.g. Reflex).
 
 This does mean you can’t simply run mapM against a Value [a], 
-and this often requires a special operator for the that action in the domain in question.
+and this often requires a special operator for the action in the domain in question.
 
 I’m not sure that there’s already name for it, but it’s definitely a pattern. 
-You’ll see it in quite a few places. So I'm pointing it out.
+You see it in quite a few places. So I'm pointing it out.
 
 I'll add a code example at a later date.
