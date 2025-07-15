@@ -8,7 +8,7 @@ In Haskell API design, you sometimes want to model a computation that looks like
 i.e. some things depend on other things, and make use of do-notation, 
 but you want to be able to statically inspect the resulting structure, too. 
 
-The ApplicativeDo notation attempts to bridge this gap by a language extension and some conventions. 
+The `ApplicativeDo` notation attempts to bridge this gap by a language extension and some conventions. 
 It lets you write applicatives with do-notation, **but** dependencies between actions are **explicitly forbidden.** 
 That limits its utility for this purpose.
 
