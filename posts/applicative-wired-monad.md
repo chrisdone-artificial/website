@@ -6,10 +6,11 @@ description: Different ways of writing code
 
 In Haskell API design, you sometimes want to model a computation that looks like a monad, 
 i.e. some things depend on other things, and make use of do-notation, 
-but you want to be able to statically inspect it as an ADT too. 
+but you want to be able to statically inspect the resulting structure, too. 
 
 The ApplicativeDo notation attempts to bridge this gap by a language extension and some conventions. 
-It lets you write applicatives with do-notation, but dependencies between actions are explicitly forbidden.
+It lets you write applicatives with do-notation, **but** dependencies between actions are **explicitly forbidden.** 
+That limits its utility for this purpose.
 
 Here’s a separate pattern I’ve put to use in a build system library, 
 but has been used in popular database libraries and FRP libraries, 
