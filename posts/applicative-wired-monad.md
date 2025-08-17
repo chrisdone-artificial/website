@@ -39,4 +39,92 @@ and this often requires a special operator for the action in the domain in quest
 I’m not sure that there’s already name for it, but it’s definitely a pattern. 
 You see it in quite a few places. Hence pointing it out.
 
-I'll add a full code example at a later date.
+Full code example:
+
+```haskell
+{-# language GADTs, LambdaCase #-}
+import qualified Data.ByteString as S
+import qualified Data.ByteString.Char8 as S8
+import Data.Functor.Identity
+import Data.ByteString (ByteString)
+import qualified Data.Map as Map
+import Data.Map (Map)
+import qualified Data.Set as Set
+import Data.Set (Set)
+import Control.Monad.Trans.State.Strict
+import Control.Monad
+
+--------------------------------------------------------------------------------
+-- The applicative-wired monad pattern
+
+data Action f m a where
+  Return :: a -> Action f m a
+  Bind :: Action f m a -> (a -> Action f m b) -> Action f m b
+  Action :: String -> f i -> (i -> m a) -> Action f m (f a)
+
+instance Monad (Action f m) where return = pure; (>>=) = Bind
+instance Applicative (Action f m) where (<*>) = ap; pure = Return
+instance Functor (Action f m) where fmap = liftM
+
+--------------------------------------------------------------------------------
+-- An example
+
+example :: Applicative f => Action f IO (f (ByteString, ByteString))
+example = do
+  file1 <- Action "read_file_1" (pure ()) $ const $ S.readFile "file1.txt"
+  file2 <- Action "read_file_2" file1 $ S.readFile .  unwords . words . S8.unpack
+  pure $ (,) <$> file1 <*> file2
+
+--------------------------------------------------------------------------------
+-- IO interpretation
+
+runIO :: Action Identity IO a -> IO a
+runIO = \case
+  Return a -> return a
+  Bind m f -> runIO m >>= runIO . f
+  Action name input act -> do
+    putStrLn $ "Running " ++ name
+    out <- act (runIdentity input)
+    pure $ Identity out
+
+--------------------------------------------------------------------------------
+-- Graphable interpretation
+
+data Value a where
+  Key :: String -> Value a
+  Pure :: a -> Value a
+  Ap :: Value (a -> b) -> Value a -> Value b
+
+instance Applicative Value where (<*>) = Ap; pure = Pure
+instance Functor Value where fmap f m = pure f <*> m
+
+graph :: Action Value m a -> State (Map String (Set String)) a
+graph = \case
+  Action string i _ -> do
+    modify (Map.insert string (keys i))
+    pure $ Key string
+  Bind m f -> graph m >>= graph . f
+  Return a -> pure a
+
+keys :: Value a -> Set String
+keys = \case
+  Pure _ -> mempty
+  Key k -> Set.singleton k
+  Ap f m -> keys f <> keys m
+```
+
+Example:
+
+```haskell
+-- Run as raw IO:
+
+> runIO example
+Running read_file_1
+Running read_file_2
+Identity ("file2.txt\n","Second file!\n")
+
+-- Dependency graph:
+
+> flip execState mempty $ graph example
+fromList [("read_file_1",fromList []),("read_file_2",fromList ["read_file_1"])]
+```
