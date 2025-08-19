@@ -4,6 +4,49 @@ title: LLMs
 tags: ai
 ---
 
+This page serves as my place to journal what are hopefully balanced thoughts on the current 
+AI summer, driven by LLMs.
+
+# 2025-08-19
+
+Since the last update, I've experimented with local LLM models on my MacBookPro Max M4, which
+can run 3b parameter models. I wanted to approach the whole LLM hype as a tool, like grep or awk,
+and see whether there was a niche for it as a way of making free text tractable, rather than
+as some kind of sci-fi oracle, as many people seem to treat it. 
+
+Those models are very unpredictable as an individual observer. I tried out
+Ollama's "tool use", which is when a model will reply with a specific format to call a function
+when given a prompt of the right schema. That's also unreliable (to the extent I discount 
+its viability for my own purposes), because the mechnism is the same as normal 
+prompting and generation.
+
+A tool that might be viable is GBNF, which is a BNF grammar format that llama.cpp supports;
+it is a filter function that sits very close to the generation of tokens, and discards
+tokens that do not match the GBNF grammar. This is promising because you can at least
+rely on the output syntax if not the meaning. It also works well on small models, and
+is expensive on larger models. Ollama are not planning to support it, but llama.cpp does,
+so I will abandon the former in favor of the latter.
+
+In code generation, I've experimented with fully agentic "make a PR to do x", to a 
+50% success rate. Code review bots are hit and miss at the moment. Failure meaning,
+it would have been easier and mentally more nourishing to do a task myself
+than to deal with the failed interaction.
+
+I've found that cloud LLMs are quite good replacements for Google search, to discover
+direct sources. I've in contrast found that exploring ideas like architectures and such
+to be unhelpful. It has ironically renewed my interest in theory (TLA+, Liquid Haskell), 
+tools that make me think better, rather than delegating my thinking.
+
+I had a month of apathy for working on my open source scripting language, Hell, 
+due to a fairly bleak outlook for niche languages due to LLMs. But that passed and
+my interest came back.
+
+I'm not an economist, but hopefully no winter or crash is coming.
+
+Overall, present outlook is: tinkering with mild interest, local first,
+so-so performance for job-related tasks, using as a Google++, avoiding delegating
+thinking, renewed interest in learning theory.
+
 # 2025-06-04
 
 Small update: I'd presently describe my outlook as sceptical. I go in
