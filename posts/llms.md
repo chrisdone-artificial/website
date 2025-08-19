@@ -12,7 +12,8 @@ AI summer, driven by LLMs.
 Since the last update, I've experimented with local LLM models on my MacBookPro Max M4, which
 can run 3b parameter models. I wanted to approach the whole LLM hype as a tool, like grep or awk,
 and see whether there was a niche for it as a way of making free text tractable, rather than
-as some kind of sci-fi oracle, as many people seem to treat it. 
+as some kind of sci-fi oracle, as many people seem to treat it. I wrote a module for
+Emacs that could stream responses from Ollama.
 
 Those models are very unpredictable as an individual observer. I tried out
 Ollama's "tool use", which is when a model will reply with a specific format to call a function
