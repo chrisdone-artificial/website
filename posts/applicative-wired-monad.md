@@ -42,7 +42,11 @@ You see it in quite a few places. Hence pointing it out.
 Full code example:
 
 ```haskell
-{-# language GADTs, LambdaCase #-}
+{-# LANGUAGE KindSignatures #-}
+{-# language GADTs, LambdaCase, GeneralizedNewtypeDeriving #-}
+import GHC.Types
+import Control.Monad.Free
+import Control.Applicative.Free
 import qualified Data.ByteString as S
 import qualified Data.ByteString.Char8 as S8
 import Data.Functor.Identity
@@ -52,65 +56,58 @@ import Data.Map (Map)
 import qualified Data.Set as Set
 import Data.Set (Set)
 import Control.Monad.Trans.State.Strict
-import Control.Monad
 
 --------------------------------------------------------------------------------
 -- The applicative-wired monad pattern
 
-data Action f m a where
-  Return :: a -> Action f m a
-  Bind :: Action f m a -> (a -> Action f m b) -> Action f m b
-  Action :: String -> f i -> (i -> m a) -> Action f m (f a)
+data Spec f m a where
+  Spec :: String -> f i -> (i -> m a) -> Spec f m (f a)
 
-instance Monad (Action f m) where return = pure; (>>=) = Bind
-instance Applicative (Action f m) where (<*>) = ap; pure = Return
-instance Functor (Action f m) where fmap = liftM
+newtype Action f m a = Action { runAction :: Free (Ap (Spec f m)) a }
+  deriving (Functor, Applicative, Monad)
+
+act :: String -> f i -> (i -> m a) -> Action f m (f a)
+act l i f = Action $ liftF $ liftAp $ Spec l i f
 
 --------------------------------------------------------------------------------
 -- An example
 
 example :: Applicative f => Action f IO (f (ByteString, ByteString))
 example = do
-  file1 <- Action "read_file_1" (pure ()) $ const $ S.readFile "file1.txt"
-  file2 <- Action "read_file_2" file1 $ S.readFile .  unwords . words . S8.unpack
+  file1 <- act "read_file_1" (pure ()) $ const $ S.readFile "file1.txt"
+  file2 <- act "read_file_2" file1 $ S.readFile .  unwords . words . S8.unpack
   pure $ (,) <$> file1 <*> file2
 
 --------------------------------------------------------------------------------
 -- IO interpretation
 
 runIO :: Action Identity IO a -> IO a
-runIO = \case
-  Return a -> return a
-  Bind m f -> runIO m >>= runIO . f
-  Action name input act -> do
-    putStrLn $ "Running " ++ name
-    out <- act (runIdentity input)
-    pure $ Identity out
+runIO = foldFree (runAp io) . runAction where
+  io :: Spec Identity IO x -> IO x
+  io = \case
+    Spec name input act' -> do
+      putStrLn $ "Running " ++ name
+      out <- act' $ runIdentity input
+      pure $ Identity out
 
 --------------------------------------------------------------------------------
 -- Graphable interpretation
 
-data Value a where
-  Key :: String -> Value a
-  Pure :: a -> Value a
-  Ap :: Value (a -> b) -> Value a -> Value b
+newtype Value m a = Value { runValue :: Ap (Key m) a }
+  deriving (Functor, Applicative)
 
-instance Applicative Value where (<*>) = Ap; pure = Pure
-instance Functor Value where fmap f m = pure f <*> m
+data Key (m :: Type -> Type) a = Key { unKey :: String }
 
-graph :: Action Value m a -> State (Map String (Set String)) a
-graph = \case
-  Action string i _ -> do
+graph :: Monad m => Action (Value m) m a -> State (Map String (Set String)) a
+graph = foldFree (runAp go) . runAction where
+  go :: Spec (Value m) m a -> State (Map String (Set String)) a
+  go = \case
+   Spec string i _ -> do
     modify (Map.insert string (keys i))
-    pure $ Key string
-  Bind m f -> graph m >>= graph . f
-  Return a -> pure a
+    pure $ Value $ liftAp $ Key string
 
-keys :: Value a -> Set String
-keys = \case
-  Pure _ -> mempty
-  Key k -> Set.singleton k
-  Ap f m -> keys f <> keys m
+  keys ::  Value m a -> Set String
+  keys = runAp_ (Set.singleton . unKey) . runValue
 ```
 
 Example:
