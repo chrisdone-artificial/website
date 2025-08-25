@@ -44,7 +44,6 @@ Full code example:
 ```haskell
 {-# LANGUAGE KindSignatures #-}
 {-# language GADTs, LambdaCase, GeneralizedNewtypeDeriving #-}
-import GHC.Types
 import Control.Monad.Free
 import Control.Applicative.Free
 import qualified Data.ByteString as S
@@ -93,20 +92,20 @@ runIO = foldFree (runAp io) . runAction where
 --------------------------------------------------------------------------------
 -- Graphable interpretation
 
-newtype Value m a = Value { runValue :: Ap (Key m) a }
+newtype Value a = Value { runValue :: Ap Key a }
   deriving (Functor, Applicative)
 
-data Key (m :: Type -> Type) a = Key { unKey :: String }
+data Key a = Key { unKey :: String }
 
-graph :: Monad m => Action (Value m) m a -> State (Map String (Set String)) a
+graph :: Monad m => Action Value m a -> State (Map String (Set String)) a
 graph = foldFree (runAp go) . runAction where
-  go :: Spec (Value m) m a -> State (Map String (Set String)) a
+  go :: Spec Value m a -> State (Map String (Set String)) a
   go = \case
    Spec string i _ -> do
     modify (Map.insert string (keys i))
     pure $ Value $ liftAp $ Key string
 
-  keys ::  Value m a -> Set String
+  keys ::  Value a -> Set String
   keys = runAp_ (Set.singleton . unKey) . runValue
 ```
 
