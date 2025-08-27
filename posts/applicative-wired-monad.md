@@ -30,8 +30,8 @@ The trick is that all functions exposed by the API only return the type `Action 
 and sometimes accept `Value a` as arguments. This means you wire up a graph, 
 with `Action` containing nodes and `Value` serving the edges. 
 You combine multiple output values into a single argument value via its `Applicative` instance. 
-Then it’s easy to either run it as a regular action (by interpreting `Value` as `Identity`), 
-or graph it out or batch it as needed.  Works for SQL DBs (e.g. Rel8), build systems or FRP (e.g. Reflex).
+Then it’s easy to graph it out or batch it as needed. Works for SQL DBs (e.g. Rel8), 
+build systems or FRP (e.g. Reflex).
 
 This does mean you can’t simply run `mapM` against a `Value [a]`, 
 and this often requires a special operator for the action in the domain in question.
@@ -39,7 +39,12 @@ and this often requires a special operator for the action in the domain in quest
 I’m not sure that there’s already name for it, but it’s definitely a pattern. 
 You see it in quite a few places. Hence pointing it out.
 
-Full code example:
+Full code example below. I've added an extra `f` parameter on the `Action` type to emphasize that
+by exposing an API like this, you can inspect the monad's structure, but that you can also
+keep your monad well-formed (i.e. interpret the `Applicative` as `Identity`). But it's not necessary
+to add a parameter to everything, and in practice all examples I've seen do not have a parameter, 
+and are specialized on a particular type. Sometimes the type isn't actually an `Applicative`, 
+but is similar in spirit (e.g. DB libraries often have `Expr a` returned by `Query a` monad).
 
 ```haskell
 {-# LANGUAGE KindSignatures #-}
