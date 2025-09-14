@@ -1,5 +1,5 @@
 ---
-title: Argumentation ad colossum
+title: Argumentum ad colossum
 date: 2025-09-14
 description: Arguing from big companies
 ---
