@@ -18,6 +18,9 @@ Kubernetes, chaos monkey, using TLA+, adopting generative AI, and so on.
 You can't transplant a technological design isolated from other factors, inconveniently. 
 The full thinking needs to be done.
 
+It reminds me somewhat of [The Logical Fallacy of Generalization from Fictional Evidence](https://www.lesswrong.com/posts/rHBdcHGLJ7KvLJQPk/the-logical-fallacy-of-generalization-from-fictional), where
+people are essentially arguing from stories, not experience or science.
+
 Nevertheless I hear people slipping into this line of thinking, of the form “well, 
 if we were at X giant corporation we would just…”, including myself, 
 and feel like I need a catchy tongue-in-cheek name, so here it is: *argumentum ad colossum.*
