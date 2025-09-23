@@ -7,6 +7,25 @@ tags: ai
 This page serves as my place to journal what are hopefully balanced thoughts on the current 
 AI summer, driven by LLMs.
 
+# 2025-09-23
+
+Harvard published [this article defining "workslop"](https://hbr.org/2025/09/ai-generated-workslop-is-destroying-productivity), a new term for when someone substitutes hard thinking for
+LLM generated slop. I had been thinking about this recently, 
+having witnessed it at work, but hadn't articulated it yet, 
+so I'm glad for the new term.
+
+I accidentally discovered [this article](https://jacobin.com/2024/02/holly-herndon-ai-music-composition) while looking up Holly Herndon,
+I enjoyed the reframing of LLMs from "artificial intelligence" to "collective intelligence", which more accurately describes what a large
+language model is, and sounds a bit more positive and inclusive.
+
+I got llama.cpp working from Emacs for both regular queries and GBNF-constrained outputs. 
+I'm happy with the outputs, though I've not been using it for a couple weeks. Will come back to it.
+
+Current mood: still interested to dabble more. 
+Currently sceptical that organisations across the board are benefitting from LLMs. 
+I read in the Economist that more small, boutique models, aka SLMs, are becoming preferred over the Big models provided by OpenAI, 
+Anthropic, etc. which makes some sense. 
+
 # 2025-08-19
 
 Since the last update, I've experimented with local LLM models on my MacBookPro Max M4, which
