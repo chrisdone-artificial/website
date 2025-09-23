@@ -152,6 +152,8 @@ type. *You* changed a namespace.
 I'll repeat myself: the IPP is about valuing the user's time over the maintainer's time. *It's not
 all about you and your needs.* Think about others who have to consume your work.
 
+Even the containers package authors plan to [remove old names](https://github.com/haskell/containers/pull/1049/files), despite there being no reason to do so.
+
 #### Why have package versions when you are going to duplicate an entire module or package when you make a breaking change?
 
 I already covered this above, but let's rewrite in a different way: Package versions in Haskell are broken.
