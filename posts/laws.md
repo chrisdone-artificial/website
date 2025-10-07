@@ -22,6 +22,8 @@ negating the perceived benefits. Computers get faster and get more memory,
 so our apps are written in high-level languages that use more resources to do the same thing,
 and then the experience is slow again.
 
+Related: Andy and Bill's law (of Intel and Microsoft): "what Andy giveth, Bill taketh away."
+
 # Law of Triviality
 
 C. Northcote Parkinson's law of trivality, from which bikeshedding derives,
