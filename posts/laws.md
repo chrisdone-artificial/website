@@ -41,3 +41,10 @@ Melvin Conway's law is:
 Joel Spolsky's law states that every nontrivial abstraction leaks the details that it's
 trying to protect you from. Worse still, if you've only learned the abstraction and not the
 level below it, you're ill-equipped to deal with the leak anyway. 
+
+# Hutber's law
+
+Patrick Hutber: Improvement means deterioration. 
+If a company tells you it is improving a service it provides,
+it almost always means it will do less for you, charge you more, or both.
+
