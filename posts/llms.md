@@ -18,7 +18,7 @@ manually with Emacs Lisp, so I wasn't entirely robbed of the experience. I belie
 that one may "vibe" projects, but only those things they could do themselves readily. The exercise of writing is often as valuable
 as the written thing. 
 
-The more things that you vibe that you do not understand, the more your knowledge will stand still and that muscle will not be exercised.
+The more things that you vibe that you do not understand, the more your knowledge will stand still and that muscle will not be exercised, and atrophy.
 By contrast, if you only vibe things that you already understand fully, but do the hard work on everything else, you'll continue growing,
 but will also get the accelerative edge of LLM vibing.
 
