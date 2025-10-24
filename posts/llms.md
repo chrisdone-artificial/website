@@ -7,6 +7,21 @@ tags: ai
 This page serves as my place to journal what are hopefully balanced thoughts on the current 
 AI summer, driven by LLMs.
 
+# 2025-10-24
+
+I've had what I'd describe as "hole in one" experience where I generated two Haskell packages, sse-conduit and llm-conduit, from a single Claude prompt, which both compiled and worked
+the first time when pointing it at llama.cpp's server. This gave me pause as in the past I would enjoyed sitting down
+to write these and publishing them. Given that the whole thing took about 10 minutes, I didn't do either.
+
+I call this a funny name like "hole in one" because it's not a normal experience. I had a few weeks prior implemented the same thing
+manually with Emacs Lisp, so I wasn't entirely robbed of the experience. I believe I'm arriving at a new standpoint which is
+that one may "vibe" projects, but only those things they could do themselves readily. The exercise of writing is often as valuable
+as the written thing. 
+
+The more things that you vibe that you do not understand, the more your knowledge will stand still and that muscle will not be exercised.
+By contrast, if you only vibe things that you already understand fully, but do the hard work on everything else, you'll continue growing,
+but will also get the accelerative edge of LLM vibing.
+
 # 2025-09-23
 
 Harvard published [this article defining "workslop"](https://hbr.org/2025/09/ai-generated-workslop-is-destroying-productivity), a new term for when someone substitutes hard thinking for
