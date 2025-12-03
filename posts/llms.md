@@ -7,6 +7,25 @@ tags: ai
 This page serves as my place to journal what are hopefully balanced thoughts on the current 
 AI summer, driven by LLMs.
 
+# 2025-12-03
+
+My experience with LLMs since my last update has been both positive and negative. 
+
+On the one hand, I've seen a quality and comprehension drop in some programmers. 
+"I vibed it" is becoming a familiar explanation for both. I'm increasingly concerned.
+
+On the other hand, I have found a workflow with LLMs that works for me. For those things that
+I could write myself and practically see in my head, this flow makes me happy:
+
+1. Prompt a tool like Cursor or Claude Code with a paragraph description of what to do and where, with the permission to edit files.
+2. Close it and return to Emacs.
+3. Browse through the diff in magit.
+4. Edit almost everything, rewrite some things, leave others that are good.
+6. Continue myself by hand as normal.
+
+This has been quite effective for me as a means to speed up tasks which are doing what I've done elsewhere with small differences. 
+I'm using it as glorified autocomplete.
+
 # 2025-10-24
 
 I've had what I'd describe as "hole in one" experience where I generated two Haskell packages, sse-conduit and llm-conduit, from a single Claude prompt, which both compiled and worked
