@@ -65,21 +65,21 @@ import Control.Monad.Trans.State.Strict
 -- The applicative-wired monad pattern
 
 data Spec f m a where
-  Spec :: String -> f i -> (i -> m a) -> Spec f m (f a)
+  Spec :: String -> f (m a) -> Spec f m (f a)
 
 newtype Action f m a = Action { runAction :: Free (Ap (Spec f m)) a }
   deriving (Functor, Applicative, Monad)
 
-act :: String -> f i -> (i -> m a) -> Action f m (f a)
-act l i f = Action $ liftF $ liftAp $ Spec l i f
+act :: String -> f (m a) -> Action f m (f a)
+act l f = Action $ liftF $ liftAp $ Spec l f
 
 --------------------------------------------------------------------------------
 -- An example
 
 example :: Applicative f => Action f IO (f (ByteString, ByteString))
 example = do
-  file1 <- act "read_file_1" (pure ()) $ const $ S.readFile "file1.txt"
-  file2 <- act "read_file_2" file1 $ S.readFile .  unwords . words . S8.unpack
+  file1 <- act "read_file_1" (pure $ S.readFile "file1.txt")
+  file2 <- act "read_file_2" (S.readFile .  unwords . words . S8.unpack <$> file1)
   pure $ (,) <$> file1 <*> file2
 
 --------------------------------------------------------------------------------
@@ -89,9 +89,9 @@ runIO :: Action Identity IO a -> IO a
 runIO = foldFree (runAp io) . runAction where
   io :: Spec Identity IO x -> IO x
   io = \case
-    Spec name input act' -> do
+    Spec name act' -> do
       putStrLn $ "Running " ++ name
-      out <- act' $ runIdentity input
+      out <- runIdentity act'
       pure $ Identity out
 
 --------------------------------------------------------------------------------
@@ -106,13 +106,15 @@ graph :: Monad m => Action Value m a -> State (Map String (Set String)) a
 graph = foldFree (runAp go) . runAction where
   go :: Spec Value m a -> State (Map String (Set String)) a
   go = \case
-   Spec string i _ -> do
+   Spec string i -> do
     modify (Map.insert string (keys i))
     pure $ Value $ liftAp $ Key string
 
   keys ::  Value a -> Set String
   keys = runAp_ (Set.singleton . unKey) . runValue
 ```
+
+(Thanks to Liam Goodacre for his suggestion to eliminate the inlined Coyoneda.)
 
 Example:
 
