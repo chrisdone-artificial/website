@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>A map generic upon the value thanks to typeable</title>
+    <title>My blog now runs on a Raspberry Pi at home</title>
     <style>
     h1 a, h2 a,h3 a,h4 a,h5 a {
       text-decoration: none;
@@ -113,47 +113,47 @@ h1 a:hover, h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
   <body>
     <div class="page-wrap">
 
-<h1>A map generic upon the value thanks to typeable</h1>
+<h1>My blog now runs on a Raspberry Pi at home</h1>
 
-<p>Not sure why I never tried this before.</p>
-<pre><code>{-# LANGUAGE ExistentialQuantification #-}
-{-# LANGUAGE DeriveDataTypeable #-}
-
-import Data.Typeable
-import qualified Data.Map as M
-import Data.Map (Map)
-
-data Person = Person Integer String
-  deriving (Typeable,Show)
-
-data Value = forall v. Typeable v =&gt; Value v
-
-demo = do
-  print (glookup &quot;foo&quot; map :: Maybe ())
-  print (glookup &quot;bar&quot; map :: Maybe Char)
-  print (glookup &quot;chris&quot; map :: Maybe Person)
-
-    where map = M.insert &quot;bar&quot; (Value &#39;a&#39;) $
-                M.insert &quot;foo&quot; (Value ())  $
-                M.insert &quot;chris&quot; (Value (Person 123 &quot;Chris Done&quot;))  $
-                M.empty
-
-glookup :: (Typeable a,Ord key) =&gt; key -&gt; Map key Value -&gt; Maybe a
-glookup key map =
-  case M.lookup key map of
-    Nothing -&gt; Nothing
-    Just (Value x) -&gt; (cast x)
-
--- λ&gt; demo
--- Just ()
--- Just &#39;a&#39;
--- Just (Person 123 &quot;Chris Done&quot;)</code></pre>
+<p>I discovered that my new house had <a
+href="https://www.ofnl.co.uk/">OFNL</a> internet, which is one of a
+handful competing fibre providers in England (others: BT OpenReach,
+VirginMedia, Hyperoptic, etc). Some of the infra providers are also the
+sole ISP, like VirginMedia and Hyperoptic, whereas BT OpenReach and OFNL
+just provide the infra and then companies can offer consumer ISP
+services on top of it.</p>
+<p>I picked one (<a href="https://www.merula.net/">Merula</a>) who, like
+a few others, provide a gigabit connection, and for about £3 per month,
+a static IPv4 address.</p>
+<p>Some ISPs in the world–even in rich countries–put people behind a <a
+href="https://en.wikipedia.org/wiki/Carrier-grade_NAT">CGNAT</a>, as a
+way to get more mileage out of the few IPv4 addresses they have. This
+means that you can’t listen on a port and have someone directly connect
+to you, because the NAT wouldn’t know who to pick. A very sad state of
+affairs. I’ve also heard about a German ISP that provides IPv6-only and
+then handles all IPv4 connections via a proxy!</p>
+<p>In that context, it’s a pretty fortunate situation to be able to get
+a static IP at my home address. As a programmer it’s more joyful to have
+this.</p>
+<p>I grabbed a Raspberry Pi 5 (highly overpowered for a blog), connected
+it to my router via gigabit Ethernet, and got it running with a simple
+SD card for the root file-system. All logs (journald) are moved to tmpfs
+(‘volatile’ storage mode). The blog itself is sync’d via a webhook from
+GitHub, and is stored in tmpfs, too. Like this, it should run for a
+couple years without the SD card wearing out.</p>
+<p>The server is <a href="https://caddyserver.com/">Caddy</a> and the
+webhook service is <a
+href="https://github.com/adnanh/webhook">webhook</a>, both come as
+systemd services, so the effort was very minimal.</p>
+<p>There’s no particular technical advantage of you reading this page
+from my home, over the Digital Ocean server I’ve had for years, which
+only cost me about $10/mo. But it was a fun little project!</p>
 
 
 <footer>
   <table style="width:100%">
     <tr>
-      <td>© 2011-12-05 <a href="/">Chris Done</a></td>
+      <td>© 2025-05-09 <a href="/">Chris Done</a></td>
       <td style="text-align:right"><a href="/posts">Read more posts →</a></td>
     </tr>
   </table>

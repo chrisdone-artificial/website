@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LLMs</title>
     <style>
-    h2 a,h3 a,h4 a,h5 a {
+    h1 a, h2 a,h3 a,h4 a,h5 a {
       text-decoration: none;
 }
-h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
+h1 a:hover, h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       text-decoration: underline;
       color: #1a6e8e;
 }
@@ -107,7 +107,7 @@ h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       }
       }
       .footnote-ref { text-decoration: none; }
-      li { margin-top: 0.5em; margin-bottom: 0.5em; }
+    li { margin-top: 0.5em; margin-bottom: 0.5em; }
     </style>
   </head>
   <body>
@@ -115,6 +115,137 @@ h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
 
 <h1>LLMs</h1>
 
+<p>This page serves as my place to journal what are hopefully balanced
+thoughts on the current AI summer, driven by LLMs.</p>
+<h1 id="section">2025-12-20</h1>
+<p>Another positive experience I’ve had with LLMs is finding an
+opportunity to redo the frontend of a fairly simple web app, which was
+previously a server-side app at work. It’s an internal tool, so it’s
+highly suited to this kind of mode of working.</p>
+<p>I remain uncomfortable shelling out my cognition for load-bearing
+code, especially on the backend, and I’m increasingly sure in my
+determination that one should only genAI things they could do readily
+themselves for work that they back and own.</p>
+<p>Elsewhere, I’m poking at formal methods. If, indeed, the trajectory
+of software development–in industry–is away from the labor of
+implementation, there may perhaps be space for verification. The feeling
+might pass, but it feels possible that LLMs may make formal methods
+mainstream. That wouldn’t be so bad, as a good subset of programmers
+like formal thinking. Whether software, subject to market forces and
+competition, will get any better or worse objectively, I’m
+skeptical.</p>
+<h1 id="section-1">2025-12-03</h1>
+<p>My experience with LLMs since my last update has been both positive
+and negative.</p>
+<p>On the one hand, I’ve seen a quality and comprehension drop in some
+programmers. “I vibed it” is becoming a familiar explanation for both.
+I’m increasingly concerned.</p>
+<p>On the other hand, I have found a workflow with LLMs that works for
+me. For those things that I could write myself and practically see in my
+head, this flow makes me happy:</p>
+<ol type="1">
+<li>Prompt a tool like Cursor or Claude Code with a paragraph
+description of what to do and where, with the permission to edit
+files.</li>
+<li>Close it and return to Emacs.</li>
+<li>Browse through the diff in magit.</li>
+<li>Edit almost everything, rewrite some things, leave others that are
+good.</li>
+<li>Continue myself by hand as normal.</li>
+</ol>
+<p>This has been quite effective for me as a means to speed up tasks
+which are doing what I’ve done elsewhere with small differences. I’m
+using it as glorified autocomplete.</p>
+<h1 id="section-2">2025-10-24</h1>
+<p>I’ve had what I’d describe as “hole in one” experience where I
+generated two Haskell packages, sse-conduit and llm-conduit, from a
+single Claude prompt, which both compiled and worked the first time when
+pointing it at llama.cpp’s server. This gave me pause as in the past I
+would enjoyed sitting down to write these and publishing them. Given
+that the whole thing took about 10 minutes, I didn’t do either.</p>
+<p>I call this a funny name like “hole in one” because it’s not a normal
+experience. I had a few weeks prior implemented the same thing manually
+with Emacs Lisp, so I wasn’t entirely robbed of the experience. I
+believe I’m arriving at a new standpoint which is that one may “vibe”
+projects, but only those things they could do themselves readily. The
+exercise of writing is often as valuable as the written thing.</p>
+<p>The more things that you vibe that you do not understand, the more
+your knowledge will stand still and that muscle will not be exercised,
+and atrophy. By contrast, if you only vibe things that you already
+understand fully, but do the hard work on everything else, you’ll
+continue growing, but will also get the accelerative edge of LLM
+vibing.</p>
+<h1 id="section-3">2025-09-23</h1>
+<p>Harvard published <a
+href="https://hbr.org/2025/09/ai-generated-workslop-is-destroying-productivity">this
+article defining “workslop”</a>, a new term for when someone substitutes
+hard thinking for LLM generated slop. I had been thinking about this
+recently, having witnessed it at work, but hadn’t articulated it yet, so
+I’m glad for the new term.</p>
+<p>I accidentally discovered <a
+href="https://jacobin.com/2024/02/holly-herndon-ai-music-composition">this
+article</a> while looking up Holly Herndon, I enjoyed the reframing of
+LLMs from “artificial intelligence” to “collective intelligence”, which
+more accurately describes what a large language model is, and sounds a
+bit more positive and inclusive.</p>
+<p>I got llama.cpp working from Emacs for both regular queries and
+GBNF-constrained outputs. I’m happy with the outputs, though I’ve not
+been using it for a couple weeks. Will come back to it.</p>
+<p>Current mood: still interested to dabble more. Currently sceptical
+that organisations across the board are benefitting from LLMs. I read in
+the Economist that more small, boutique models, aka SLMs, are becoming
+preferred over the Big models provided by OpenAI, Anthropic, etc. which
+makes some sense.</p>
+<h1 id="section-4">2025-08-19</h1>
+<p>Since the last update, I’ve experimented with local LLM models on my
+MacBookPro Max M4, which can run 3b parameter models. I wanted to
+approach the whole LLM hype as a tool, like grep or awk, and see whether
+there was a niche for it as a way of making free text tractable, rather
+than as some kind of sci-fi oracle, as many people seem to treat it. I
+wrote a module for Emacs that could stream responses from Ollama.</p>
+<p>Those models are very unpredictable as an individual observer. I
+tried out Ollama’s “tool use”, which is when a model will reply with a
+specific format to call a function when given a prompt of the right
+schema. That’s also unreliable (to the extent I discount its viability
+for my own purposes), because the mechnism is the same as normal
+prompting and generation.</p>
+<p>A tool that might be viable is GBNF, which is a BNF grammar format
+that llama.cpp supports; it is a filter function that sits very close to
+the generation of tokens, and discards tokens that do not match the GBNF
+grammar. This is promising because you can at least rely on the output
+syntax if not the meaning. It also works well on small models, and is
+expensive on larger models. Ollama are not planning to support it, but
+llama.cpp does, so I will abandon the former in favor of the latter.</p>
+<p>In code generation, I’ve experimented with fully agentic “make a PR
+to do x”, to a 50% success rate. Code review bots are hit and miss at
+the moment. Failure meaning, it would have been easier and mentally more
+nourishing to do a task myself than to deal with the failed
+interaction.</p>
+<p>I’ve found that cloud LLMs are quite good replacements for Google
+search, to discover direct sources. I’ve in contrast found that
+exploring ideas like architectures and such to be unhelpful. It has
+ironically renewed my interest in theory (TLA+, Liquid Haskell), tools
+that make me think better, rather than delegating my thinking.</p>
+<p>I had a month of apathy for working on my open source scripting
+language, Hell, due to a fairly bleak outlook for niche languages due to
+LLMs. But that passed and my interest came back.</p>
+<p>I’m not an economist, but hopefully no winter or crash is coming.</p>
+<p>Overall, present outlook is: tinkering with mild interest, local
+first, so-so performance for job-related tasks, using as a Google++,
+avoiding delegating thinking, renewed interest in learning theory.</p>
+<h1 id="section-5">2025-06-04</h1>
+<p>Small update: I’d presently describe my outlook as sceptical. I go in
+cycles, of long troughs of scepticism, with very, very, brief (one-day),
+widely spread out, spikes of FOMO and belief that AI is an existential
+situation for software developers (see previous 2025-04-18 thought
+dump). But those are becoming more infrequent. I think I see which way
+the trend for me is going.</p>
+<p>Having cut out the final vestige of social media (RSS feeds; BazQux)
+from sheer disinterest, and digital devices in the evening entirely, I
+am also serene and a little bored by the whole thing. But it still does
+play on the minds of some friends.</p>
+<p>I might change my mind on the next update, we’ll see.</p>
+<h1 id="section-6">2025-04-18</h1>
 <p>I’ve been collecting thoughts on LLMs in a peacemeal way. I add to
 this document from time to time. It’s not an article as such.</p>
 <ul>
@@ -218,7 +349,7 @@ like machines.</a> It’s a funny way to flip things around.</li>
 
     </div>
     <script>
-    var headers = document.querySelectorAll('h2, h3, h4, h5');
+      var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
     headers.forEach(function(header) {
         var headerId = header.id;
         if (headerId) {
