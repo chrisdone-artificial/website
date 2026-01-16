@@ -47,8 +47,10 @@ and are specialized on a particular type. Sometimes the type isn't actually an `
 but is similar in spirit (e.g. DB libraries often have `Expr a` returned by `Query a` monad).
 
 ```haskell
-{-# LANGUAGE KindSignatures #-}
+{-# LANGUAGE KindSignatures, BlockArguments #-}
 {-# language GADTs, LambdaCase, GeneralizedNewtypeDeriving #-}
+import Data.Kind
+import Data.Functor.Const
 import Control.Monad.Free
 import Control.Applicative.Free
 import qualified Data.ByteString as S
@@ -97,21 +99,26 @@ runIO = foldFree (runAp io) . runAction where
 --------------------------------------------------------------------------------
 -- Graphable interpretation
 
-newtype Value a = Value { runValue :: Ap Key a }
+newtype Value (a :: Type) = Value { runValue :: Const (Set String) a }
   deriving (Functor, Applicative)
+instance Show (Value a) where
+  show = show . keys
 
-data Key a = Key { unKey :: String }
+runGraph :: Applicative m => Action Value m (Value a) -> (Value a, Map String (Set String))
+runGraph x = flip runState mempty $ graph $ do
+  v <- x
+  act "root" (pure <$> v)
 
-graph :: Monad m => Action Value m a -> State (Map String (Set String)) a
+graph :: Action Value m a -> State (Map String (Set String)) a
 graph = foldFree (runAp go) . runAction where
   go :: Spec Value m a -> State (Map String (Set String)) a
   go = \case
    Spec string i -> do
     modify (Map.insert string (keys i))
-    pure $ Value $ liftAp $ Key string
+    pure $ Value $ Const (Set.singleton string)
 
-  keys ::  Value a -> Set String
-  keys = runAp_ (Set.singleton . unKey) . runValue
+keys ::  Value a -> Set String
+keys = getConst . runValue
 ```
 
 (Thanks to Liam Goodacre for his suggestion to eliminate the inlined Coyoneda.)
@@ -119,15 +126,17 @@ graph = foldFree (runAp go) . runAction where
 Example:
 
 ```haskell
+-- Example:
+
 -- Run as raw IO:
 
-> runIO example
-Running read_file_1
-Running read_file_2
-Identity ("file2.txt\n","Second file!\n")
+-- > runIO example
+-- Running read_file_1
+-- Running read_file_2
+-- Identity ("hello.txt\n","you found me\n")
 
 -- Dependency graph:
 
-> flip execState mempty $ graph example
-fromList [("read_file_1",fromList []),("read_file_2",fromList ["read_file_1"])]
+-- > runGraph example
+-- (fromList ["root"],fromList [("read_file_1",fromList []),("read_file_2",fromList ["read_file_1"]),("root",fromList ["read_file_1","read_file_2"])])
 ```
