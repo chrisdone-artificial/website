@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Fast Haskell: Competing with C at parsing XML</title>
     <style>
-    h2 a,h3 a,h4 a,h5 a {
+    h1 a, h2 a,h3 a,h4 a,h5 a {
       text-decoration: none;
 }
-h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
+h1 a:hover, h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       text-decoration: underline;
       color: #1a6e8e;
 }
@@ -107,7 +107,7 @@ h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       }
       }
       .footnote-ref { text-decoration: none; }
-      li { margin-top: 0.5em; margin-bottom: 0.5em; }
+    li { margin-top: 0.5em; margin-bottom: 0.5em; }
     </style>
   </head>
   <body>
@@ -178,7 +178,7 @@ XML file.</p>
 <p>Using the <a href="http://www.serpentine.com/criterion/">Criterion
 benchmarking package</a>, we can compare Hexml against the pretty old
 Haskell <code>xml</code> package…</p>
-<p><img src="http://i.imgur.com/jhDkKEn.png" /></p>
+<p>[image deleted due to region politics]</p>
 <pre><code>File   hexml    xml
 4KB    6.26 μs  1.94 ms (1940 μs)
 31KB   9.41 μs  13.6 ms (13600 μs)
@@ -196,7 +196,7 @@ modularity.</p>
 <p>So that’s probably more representing the best in Haskell XML parsers.
 It’s also based on the C expat library, which is supposed to be
 fast.</p>
-<p><img src="http://i.imgur.com/PznIjRs.png" /></p>
+<p>[image deleted due to region politics]</p>
 <pre><code>File   hexml     hexpat
 4KB    6.395 μs  320.3 μs
 31KB   9.474 μs  378.3 μs
@@ -586,7 +586,7 @@ We’re Haskellers, we like safety. I’ll keep my safe functions.</p>
 <p>I’d be remiss if I didn’t address the fact that Hexml does more
 useful things than we’ve done here. Hexml allocates a DOM for random
 access. Oh no! Allocation: Haskell’s worse enemy!</p>
-<p><img src="http://www.reactiongifs.com/r/rna.gif" /></p>
+<p>[image deleted due to region politics]</p>
 <p>We’ve seen that Haskell allocates a lot normally. Actually, have we
 looked at that properly?</p>
 <pre><code>Case                   Bytes  GCs  Check
@@ -743,7 +743,7 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb40-1"><a
 <p>So that works.</p>
 <h2 id="wrapping-up">Wrapping-up</h2>
 <p>The final results are in:</p>
-<p><img src="http://i.imgur.com/XgdZoQ9.png" /></p>
+<p>[image deleted due to region politics]</p>
 <p>And just to check that a 1MB file doesn’t give wildly different
 results:</p>
 <pre><code>benchmarking 1MB/hexml-dom
@@ -784,7 +784,7 @@ good home. I’m not looking for more packages to maintain.</p>
 
     </div>
     <script>
-    var headers = document.querySelectorAll('h2, h3, h4, h5');
+      var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
     headers.forEach(function(header) {
         var headerId = header.id;
         if (headerId) {

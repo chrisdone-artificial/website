@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Immutable Publishing Policy</title>
     <style>
-    h2 a,h3 a,h4 a,h5 a {
+    h1 a, h2 a,h3 a,h4 a,h5 a {
       text-decoration: none;
 }
-h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
+h1 a:hover, h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       text-decoration: underline;
       color: #1a6e8e;
 }
@@ -107,7 +107,7 @@ h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       }
       }
       .footnote-ref { text-decoration: none; }
-      li { margin-top: 0.5em; margin-bottom: 0.5em; }
+    li { margin-top: 0.5em; margin-bottom: 0.5em; }
     </style>
   </head>
   <body>
@@ -278,6 +278,9 @@ a namespace.</p>
 <p>I’ll repeat myself: the IPP is about valuing the user’s time over the
 maintainer’s time. <em>It’s not all about you and your needs.</em> Think
 about others who have to consume your work.</p>
+<p>Even the containers package authors plan to <a
+href="https://github.com/haskell/containers/pull/1049/files">remove old
+names</a>, despite there being no reason to do so.</p>
 <h4
 id="why-have-package-versions-when-you-are-going-to-duplicate-an-entire-module-or-package-when-you-make-a-breaking-change">Why
 have package versions when you are going to duplicate an entire module
@@ -303,7 +306,7 @@ should be given the option to migrate between them.</p>
 
     </div>
     <script>
-    var headers = document.querySelectorAll('h2, h3, h4, h5');
+      var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
     headers.forEach(function(header) {
         var headerId = header.id;
         if (headerId) {

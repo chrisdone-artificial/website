@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>A spectrum of web dev abstraction</title>
     <style>
-    h2 a,h3 a,h4 a,h5 a {
+    h1 a, h2 a,h3 a,h4 a,h5 a {
       text-decoration: none;
 }
-h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
+h1 a:hover, h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       text-decoration: underline;
       color: #1a6e8e;
 }
@@ -107,7 +107,7 @@ h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       }
       }
       .footnote-ref { text-decoration: none; }
-      li { margin-top: 0.5em; margin-bottom: 0.5em; }
+    li { margin-top: 0.5em; margin-bottom: 0.5em; }
     </style>
   </head>
   <body>
@@ -152,7 +152,7 @@ role="doc-backlink">↩︎</a></p></li>
 
     </div>
     <script>
-    var headers = document.querySelectorAll('h2, h3, h4, h5');
+      var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
     headers.forEach(function(header) {
         var headerId = header.id;
         if (headerId) {

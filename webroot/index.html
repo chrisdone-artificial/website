@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chris Done's Homepage</title>
     <style>
+      #archive {
+          margin-left: 0em;
+          margin-top: 0;
+          padding: 0;
+          list-style-type: none;
+      }
+      #archive li {
+          padding-top: 0.5em;
+      }
       body {
       max-width: 40em;
       margin: .5in auto;
@@ -21,7 +30,8 @@
       line-height: 1.5em;
       }
       a {
-      color: #1a6e8e
+          color: #1a6e8e;
+          text-decoration: none
       }
       .menu a {
       margin-right: 1em;
@@ -75,6 +85,9 @@
       pre.sourceCode span.co {
       color: #666
       }
+            #posts h2 {
+          margin-bottom: 0.5em;
+      }
       @media(max-width:767px){
       body { margin: 1px 4px; }
       h1, h2, .menu { margin: 0; }
@@ -82,11 +95,18 @@
       h2 { font-size: 1.125em; }
       h3 { font-size: 1.0125em; }
       .menu a { margin-right: 0.1em; }
-      #archive { margin-left: 1em; margin-top: 0; padding: 0}
       #archive .post-1, #archive .post-2 {
       margin-bottom: 0.1em;
       }
+      #posts {
+          margin-top: 0.5em;
+
       }
+      #posts h2 {
+          margin-bottom: 0em;
+      }
+      }
+
     </style>
   </head>
   <body>
@@ -100,7 +120,7 @@
     <a href="/rss.xml">RSS</a>
     <a href="http://github.com/chrisdone">GitHub</a>
     <!-- <a href="http://twitter.com/christopherdone">Twitter</a> -->
-    
+
   </p>
 </div>
 <div id="posts">
@@ -154,7 +174,7 @@
 <footer>
   <table style="width:100%">
     <tr>
-      <td>© 2008-2025 Chris Done</td>
+      <td>© 2008-2026 Chris Done</td>
     </tr>
   </table>
 </footer>

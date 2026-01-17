@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The constraint trick for instances</title>
     <style>
-    h2 a,h3 a,h4 a,h5 a {
+    h1 a, h2 a,h3 a,h4 a,h5 a {
       text-decoration: none;
 }
-h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
+h1 a:hover, h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       text-decoration: underline;
       color: #1a6e8e;
 }
@@ -107,7 +107,7 @@ h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       }
       }
       .footnote-ref { text-decoration: none; }
-      li { margin-top: 0.5em; margin-bottom: 0.5em; }
+    li { margin-top: 0.5em; margin-bottom: 0.5em; }
     </style>
   </head>
   <body>
@@ -198,7 +198,6 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>λ<span class="op">&gt;</span> execWriter (<span class="kw">do</span> <span class="st">&quot;hello&quot;</span> ; <span class="st">&quot;world&quot;</span><span class="ot"> ::</span> <span class="dt">Writer</span> <span class="dt">String</span> ())</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;helloworld&quot;</span></span></code></pre></div>
-<p><img src="http://i.imgur.com/v4j4izS.gif"></p>
 <p>This instance is picked by GHC, as we hoped, because of the
 <code>a</code>. The instance method also type checks, because the
 constraint applies when type checking the instance methods, just like if
@@ -238,7 +237,7 @@ role="doc-backlink">↩︎</a></p></li>
 
     </div>
     <script>
-    var headers = document.querySelectorAll('h2, h3, h4, h5');
+      var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
     headers.forEach(function(header) {
         var headerId = header.id;
         if (headerId) {

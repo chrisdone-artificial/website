@@ -77,7 +77,7 @@ Using the
 [Criterion benchmarking package](http://www.serpentine.com/criterion/),
 we can compare Hexml against the pretty old Haskell `xml` package...
 
-![](http://i.imgur.com/jhDkKEn.png)
+[image deleted due to region politics]
 
     File   hexml    xml
 	4KB    6.26 μs  1.94 ms (1940 μs)
@@ -98,7 +98,7 @@ So that's probably more representing the best in Haskell XML
 parsers. It's also based on the C expat library, which is supposed to
 be fast.
 
-![](http://i.imgur.com/PznIjRs.png)
+[image deleted due to region politics]
 
     File   hexml     hexpat
     4KB    6.395 μs  320.3 μs
@@ -563,7 +563,7 @@ I'd be remiss if I didn't address the fact that Hexml does more useful
 things than we've done here. Hexml allocates a DOM for random
 access. Oh no! Allocation: Haskell's worse enemy!
 
-![](http://www.reactiongifs.com/r/rna.gif)
+[image deleted due to region politics]
 
 We've seen that Haskell allocates a lot normally. Actually, have we
 looked at that properly?
@@ -768,7 +768,7 @@ So that works.
 
 The final results are in:
 
-![](http://i.imgur.com/XgdZoQ9.png)
+[image deleted due to region politics]
 
 And just to check that a 1MB file doesn't give wildly different
 results:

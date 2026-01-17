@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Applicative-wired monad pattern</title>
+    <style>
+    h1 a, h2 a,h3 a,h4 a,h5 a {
+      text-decoration: none;
+}
+h1 a:hover, h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
+      text-decoration: underline;
+      color: #1a6e8e;
+}
+
+.footnote-back {
+  margin-left: 0.5em;
+}
+      #footnotes li:target {
+          background: #eeeeee;
+          border-radius: 0.5em;
+          padding: 1px 1em;
+      }
+      body {
+      max-width: 40em;
+      margin: .5in auto;
+      font-size: 18px;
+      font-family: serif;
+      line-height: 1.5;
+      }
+      pre, code {
+      font-size: 16px;
+      word-wrap: break-word;
+      }
+      pre {
+      padding-left: 1em;
+      line-height: 1.5em;
+      border-left: 5px solid #efefef;
+      }
+      a {
+      color: #1a6e8e
+      }
+      .menu a {
+      margin-right: 1em;
+      }
+      h1,h2,h3,h4,h5,h6 {
+      font-family: Helvetica;
+      }
+
+      h1 a,h2 a,h3 a,h4 a {
+      color: inherit;
+      }
+
+      .post-1,.post-2{
+      margin-bottom: 0.5em;
+      }
+
+      .author {
+      display: none;
+      }
+
+      footer {
+      margin-top: 1.5em;
+      padding-top: 1.5em;
+          border-top: 1px solid #ccc;
+      margin-bottom: 2em
+      }
+    hr {
+  border: 0.5px solid #ccc;
+}
+
+      footer span {
+      display: none;
+      }
+
+      img {
+      max-width: 100%
+      }
+      pre.sourceCode span.st {
+      color: #366354
+      }
+      pre.sourceCode span.kw {
+      color: #397460
+      }
+      pre.sourceCode span.fu {
+      color: #8f4e8b
+      }
+      pre.sourceCode span.ot {
+      color: #2e659c
+      }
+      pre.sourceCode span.dt {
+      color: #4F4371
+      }
+      pre.sourceCode span.co {
+      color: #666
+      }
+      @media(max-width:767px){
+      body { margin: 1px 4px; }
+      h1, h2, .menu { margin: 0; }
+      h1 { font-size: 1.5em; }
+      h2 { font-size: 1.125em; }
+      h3 { font-size: 1.0125em; }
+      .menu a { margin-right: 0.1em; }
+      #archive { margin-left: 1em; margin-top: 0; padding: 0}
+      #archive .post-1, #archive .post-2 {
+      margin-bottom: 0.1em;
+      }
+      }
+      .footnote-ref { text-decoration: none; }
+    li { margin-top: 0.5em; margin-bottom: 0.5em; }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrap">
+
+<h1>Applicative-wired monad pattern</h1>
+
+<p>In Haskell API design, you sometimes want to model a computation that
+looks like a monad, i.e. some things depend on other things, and make
+use of do-notation, but you want to be able to statically inspect the
+resulting structure, too.</p>
+<p>The <code>ApplicativeDo</code> notation attempts to bridge this gap
+by a language extension and some conventions. It lets you write
+applicatives with do-notation, <strong>but</strong> dependencies between
+actions are <strong>explicitly forbidden.</strong> That limits its
+utility for this purpose.</p>
+<p>Here’s a separate pattern I’ve put to use in a build system library,
+but has been used in popular database libraries and FRP libraries,
+before I ever did.</p>
+<p>You have two types like,</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Action</span> a</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Value</span> a</span></code></pre></div>
+<p>The <code>Action</code> is some instance of <code>Monad</code>, and
+could be a free monad. The <code>Value</code> is some instance of
+<code>Applicative</code>, and can be a free applicative.</p>
+<p>The trick is that all functions exposed by the API only return the
+type <code>Action (Value a)</code>, and sometimes accept
+<code>Value a</code> as arguments. This means you wire up a graph, with
+<code>Action</code> containing nodes and <code>Value</code> serving the
+edges. You combine multiple output values into a single argument value
+via its <code>Applicative</code> instance. Then it’s easy to graph it
+out or batch it as needed. Works for SQL DBs (e.g. Rel8), build systems
+or FRP (e.g. Reflex).</p>
+<p>This does mean you can’t simply run <code>mapM</code> against a
+<code>Value [a]</code>, and this often requires a special operator for
+the action in the domain in question.</p>
+<p>I’m not sure that there’s already name for it, but it’s definitely a
+pattern. You see it in quite a few places. Hence pointing it out.</p>
+<p>Full code example below. I’ve added an extra <code>f</code> parameter
+on the <code>Action</code> type to emphasize that by exposing an API
+like this, you can inspect the monad’s structure, but that you can also
+keep your monad well-formed (i.e. interpret the <code>Applicative</code>
+as <code>Identity</code>). But it’s not necessary to add a parameter to
+everything, and in practice all examples I’ve seen do not have a
+parameter, and are specialized on a particular type. Sometimes the type
+isn’t actually an <code>Applicative</code>, but is similar in spirit
+(e.g. DB libraries often have <code>Expr a</code> returned by
+<code>Query a</code> monad).</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# LANGUAGE KindSignatures, BlockArguments #-}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ot">{-# language GADTs, LambdaCase, GeneralizedNewtypeDeriving #-}</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Kind</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Functor.Const</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Control.Monad.Free</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Control.Applicative.Free</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.ByteString</span> <span class="kw">as</span> <span class="dt">S</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.ByteString.Char8</span> <span class="kw">as</span> <span class="dt">S8</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Functor.Identity</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.ByteString</span> (<span class="dt">ByteString</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">Map</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Map</span> (<span class="dt">Map</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Data.Set</span> <span class="kw">as</span> <span class="dt">Set</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Set</span> (<span class="dt">Set</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Control.Monad.Trans.State.Strict</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">-- The applicative-wired monad pattern</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Spec</span> f m a <span class="kw">where</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Spec</span><span class="ot"> ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> f (m a) <span class="ot">-&gt;</span> <span class="dt">Spec</span> f m (f a)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Action</span> f m a <span class="ot">=</span> <span class="dt">Action</span> {<span class="ot"> runAction ::</span> <span class="dt">Free</span> (<span class="dt">Ap</span> (<span class="dt">Spec</span> f m)) a }</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">deriving</span> (<span class="dt">Functor</span>, <span class="dt">Applicative</span>, <span class="dt">Monad</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="ot">act ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> f (m a) <span class="ot">-&gt;</span> <span class="dt">Action</span> f m (f a)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>act l f <span class="ot">=</span> <span class="dt">Action</span> <span class="op">$</span> liftF <span class="op">$</span> liftAp <span class="op">$</span> <span class="dt">Spec</span> l f</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">-- An example</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ot">example ::</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> <span class="dt">Action</span> f <span class="dt">IO</span> (f (<span class="dt">ByteString</span>, <span class="dt">ByteString</span>))</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>example <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  file1 <span class="ot">&lt;-</span> act <span class="st">&quot;read_file_1&quot;</span> (<span class="fu">pure</span> <span class="op">$</span> S.readFile <span class="st">&quot;file1.txt&quot;</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  file2 <span class="ot">&lt;-</span> act <span class="st">&quot;read_file_2&quot;</span> (S.readFile <span class="op">.</span>  <span class="fu">unwords</span> <span class="op">.</span> <span class="fu">words</span> <span class="op">.</span> S8.unpack <span class="op">&lt;$&gt;</span> file1)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pure</span> <span class="op">$</span> (,) <span class="op">&lt;$&gt;</span> file1 <span class="op">&lt;*&gt;</span> file2</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">-- IO interpretation</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="ot">runIO ::</span> <span class="dt">Action</span> <span class="dt">Identity</span> <span class="dt">IO</span> a <span class="ot">-&gt;</span> <span class="dt">IO</span> a</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>runIO <span class="ot">=</span> foldFree (runAp io) <span class="op">.</span> runAction <span class="kw">where</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="ot">  io ::</span> <span class="dt">Spec</span> <span class="dt">Identity</span> <span class="dt">IO</span> x <span class="ot">-&gt;</span> <span class="dt">IO</span> x</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  io <span class="ot">=</span> \<span class="kw">case</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Spec</span> name act&#39; <span class="ot">-&gt;</span> <span class="kw">do</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">putStrLn</span> <span class="op">$</span> <span class="st">&quot;Running &quot;</span> <span class="op">++</span> name</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>      out <span class="ot">&lt;-</span> runIdentity act&#39;</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pure</span> <span class="op">$</span> <span class="dt">Identity</span> out</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co">--------------------------------------------------------------------------------</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="co">-- Graphable interpretation</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="kw">newtype</span> <span class="dt">Value</span> (<span class="ot">a ::</span> <span class="dt">Type</span>) <span class="ot">=</span> <span class="dt">Value</span> {<span class="ot"> runValue ::</span> <span class="dt">Const</span> (<span class="dt">Set</span> <span class="dt">String</span>) a }</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  <span class="kw">deriving</span> (<span class="dt">Functor</span>, <span class="dt">Applicative</span>)</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Show</span> (<span class="dt">Value</span> a) <span class="kw">where</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">show</span> <span class="ot">=</span> <span class="fu">show</span> <span class="op">.</span> keys</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="ot">runGraph ::</span> <span class="dt">Applicative</span> m <span class="ot">=&gt;</span> <span class="dt">Action</span> <span class="dt">Value</span> m (<span class="dt">Value</span> a) <span class="ot">-&gt;</span> (<span class="dt">Value</span> a, <span class="dt">Map</span> <span class="dt">String</span> (<span class="dt">Set</span> <span class="dt">String</span>))</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>runGraph x <span class="ot">=</span> <span class="fu">flip</span> runState <span class="fu">mempty</span> <span class="op">$</span> graph <span class="op">$</span> <span class="kw">do</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  v <span class="ot">&lt;-</span> x</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  act <span class="st">&quot;root&quot;</span> (<span class="fu">pure</span> <span class="op">&lt;$&gt;</span> v)</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="ot">graph ::</span> <span class="dt">Action</span> <span class="dt">Value</span> m a <span class="ot">-&gt;</span> <span class="dt">State</span> (<span class="dt">Map</span> <span class="dt">String</span> (<span class="dt">Set</span> <span class="dt">String</span>)) a</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>graph <span class="ot">=</span> foldFree (runAp go) <span class="op">.</span> runAction <span class="kw">where</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="ot">  go ::</span> <span class="dt">Spec</span> <span class="dt">Value</span> m a <span class="ot">-&gt;</span> <span class="dt">State</span> (<span class="dt">Map</span> <span class="dt">String</span> (<span class="dt">Set</span> <span class="dt">String</span>)) a</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>  go <span class="ot">=</span> \<span class="kw">case</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>   <span class="dt">Spec</span> string i <span class="ot">-&gt;</span> <span class="kw">do</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>    modify (Map.insert string (keys i))</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pure</span> <span class="op">$</span> <span class="dt">Value</span> <span class="op">$</span> <span class="dt">Const</span> (Set.singleton string)</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="ot">keys ::</span>  <span class="dt">Value</span> a <span class="ot">-&gt;</span> <span class="dt">Set</span> <span class="dt">String</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>keys <span class="ot">=</span> getConst <span class="op">.</span> runValue</span></code></pre></div>
+<p>(Thanks to Liam Goodacre for his suggestion to eliminate the inlined
+Coyoneda.)</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Example:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- Run as raw IO:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt; runIO example</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Running read_file_1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Running read_file_2</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Identity (&quot;hello.txt\n&quot;,&quot;you found me\n&quot;)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- Dependency graph:</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt; runGraph example</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- (fromList [&quot;root&quot;],fromList [(&quot;read_file_1&quot;,fromList []),(&quot;read_file_2&quot;,fromList [&quot;read_file_1&quot;]),(&quot;root&quot;,fromList [&quot;read_file_1&quot;,&quot;read_file_2&quot;])])</span></span></code></pre></div>
+
+
+<footer>
+  <table style="width:100%">
+    <tr>
+      <td>© 2025-07-11 <a href="/">Chris Done</a></td>
+      <td style="text-align:right"><a href="/posts">Read more posts →</a></td>
+    </tr>
+  </table>
+</footer>
+
+    </div>
+    <script>
+      var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
+    headers.forEach(function(header) {
+        var headerId = header.id;
+        if (headerId) {
+            var anchor = document.createElement('a');
+            anchor.href = '#' + headerId;
+            anchor.textContent = header.textContent;
+            header.textContent = '';
+            header.appendChild(anchor);
+        }
+    });
+    </script>
+  </body>
+</html>

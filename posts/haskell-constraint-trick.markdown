@@ -129,8 +129,6 @@ Let's try it:
 "helloworld"
 ```
 
-<img src="http://i.imgur.com/v4j4izS.gif">
-
 This instance is picked by GHC, as we hoped, because of the `a`. The
 instance method also type checks, because the constraint applies when type
 checking the instance methods, just like if you write a regular

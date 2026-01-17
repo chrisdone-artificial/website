@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>A map generic upon the value thanks to typeable</title>
+    <title>Argumentum ad colossum</title>
     <style>
     h1 a, h2 a,h3 a,h4 a,h5 a {
       text-decoration: none;
@@ -113,47 +113,40 @@ h1 a:hover, h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
   <body>
     <div class="page-wrap">
 
-<h1>A map generic upon the value thanks to typeable</h1>
+<h1>Argumentum ad colossum</h1>
 
-<p>Not sure why I never tried this before.</p>
-<pre><code>{-# LANGUAGE ExistentialQuantification #-}
-{-# LANGUAGE DeriveDataTypeable #-}
-
-import Data.Typeable
-import qualified Data.Map as M
-import Data.Map (Map)
-
-data Person = Person Integer String
-  deriving (Typeable,Show)
-
-data Value = forall v. Typeable v =&gt; Value v
-
-demo = do
-  print (glookup &quot;foo&quot; map :: Maybe ())
-  print (glookup &quot;bar&quot; map :: Maybe Char)
-  print (glookup &quot;chris&quot; map :: Maybe Person)
-
-    where map = M.insert &quot;bar&quot; (Value &#39;a&#39;) $
-                M.insert &quot;foo&quot; (Value ())  $
-                M.insert &quot;chris&quot; (Value (Person 123 &quot;Chris Done&quot;))  $
-                M.empty
-
-glookup :: (Typeable a,Ord key) =&gt; key -&gt; Map key Value -&gt; Maybe a
-glookup key map =
-  case M.lookup key map of
-    Nothing -&gt; Nothing
-    Just (Value x) -&gt; (cast x)
-
--- λ&gt; demo
--- Just ()
--- Just &#39;a&#39;
--- Just (Person 123 &quot;Chris Done&quot;)</code></pre>
+<p>I’m coining a new phrase to use for discussion purposes:
+<em>argumentum ad colossum</em>.</p>
+<p>It’s very difficult to replicate what worked for one company at
+another company, because culture is hard to transfer. This has been
+argued in business literature, e.g. Google’s OKRs and silly interviews,
+Amazon’s “two-pizza teams”, Netflix’s culture of radical candor, Apple’s
+BDFL-style leadership, Toyota’s lean manufacturing systems, Basecamp’s
+Shape Up. It’s hard to acknowledge that these can run counter to another
+company’s DNA.</p>
+<p>In tech circles, there’s commentary about “cargo cult engineering”
+(scrum, SRE, fix-bugs-first), or copying methodologies. Similarly,
+adoption of specific architectures, technologies and design choices has
+been criticised. Kafka event driven architecture, microservices or
+monorepos, cloud deploy vs roll-your-own, Kubernetes, chaos monkey,
+using TLA+, adopting generative AI, and so on. You can’t transplant a
+technological design isolated from other factors, inconveniently. The
+full thinking needs to be done.</p>
+<p>It reminds me somewhat of <a
+href="https://www.lesswrong.com/posts/rHBdcHGLJ7KvLJQPk/the-logical-fallacy-of-generalization-from-fictional">The
+Logical Fallacy of Generalization from Fictional Evidence</a>, where
+people are essentially arguing from stories, not experience or
+science.</p>
+<p>Nevertheless I hear people slipping into this line of thinking, of
+the form “well, if we were at X giant corporation we would just…”,
+including myself, and feel like I need a catchy tongue-in-cheek name, so
+here it is: <em>argumentum ad colossum.</em></p>
 
 
 <footer>
   <table style="width:100%">
     <tr>
-      <td>© 2011-12-05 <a href="/">Chris Done</a></td>
+      <td>© 2025-09-14 <a href="/">Chris Done</a></td>
       <td style="text-align:right"><a href="/posts">Read more posts →</a></td>
     </tr>
   </table>

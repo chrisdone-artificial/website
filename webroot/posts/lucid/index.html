@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lucid: templating DSL for HTML</title>
     <style>
-    h2 a,h3 a,h4 a,h5 a {
+    h1 a, h2 a,h3 a,h4 a,h5 a {
       text-decoration: none;
 }
-h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
+h1 a:hover, h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       text-decoration: underline;
       color: #1a6e8e;
 }
@@ -107,7 +107,7 @@ h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover {
       }
       }
       .footnote-ref { text-decoration: none; }
-      li { margin-top: 0.5em; margin-bottom: 0.5em; }
+    li { margin-top: 0.5em; margin-bottom: 0.5em; }
     </style>
   </head>
   <body>
@@ -495,11 +495,10 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb41-1"><a
 and output something.</p>
 <h2 id="speed">Speed</h2>
 <p>Actually, despite having a trivial implementation, being a real monad
-and a monad transformer, it’s not far from Blaze. You can compare the <a
-href="http://imgur.com/a/iyzBl">benchmark reports here</a>. A quick test
-of writing 38M of HTML to file yielded the same speed (about 1.5s) for
-both Lucid and Blaze. With such decent performance for very little work
-I’m already ready to start using it for real work.</p>
+and a monad transformer, it’s not far from Blaze. A quick test of
+writing 38M of HTML to file yielded the same speed (about 1.5s) for both
+Lucid and Blaze. With such decent performance for very little work I’m
+already ready to start using it for real work.</p>
 <h2 id="summary">Summary</h2>
 <p>So the point of this post was really to explain <em>why another HTML
 DSL</em> and I hope I did that well enough.</p>
@@ -519,7 +518,7 @@ now.</p>
 
     </div>
     <script>
-    var headers = document.querySelectorAll('h2, h3, h4, h5');
+      var headers = document.querySelectorAll('h1, h2, h3, h4, h5');
     headers.forEach(function(header) {
         var headerId = header.id;
         if (headerId) {
