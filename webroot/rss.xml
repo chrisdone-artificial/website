@@ -13094,7 +13094,7 @@ XML file.</p>
 <p>Using the <a href="http://www.serpentine.com/criterion/">Criterion
 benchmarking package</a>, we can compare Hexml against the pretty old
 Haskell <code>xml</code> package…</p>
-<p><img src="http://i.imgur.com/jhDkKEn.png" /></p>
+<p>[image deleted due to region politics]</p>
 <pre><code>File   hexml    xml
 4KB    6.26 μs  1.94 ms (1940 μs)
 31KB   9.41 μs  13.6 ms (13600 μs)
@@ -13112,7 +13112,7 @@ modularity.</p>
 <p>So that’s probably more representing the best in Haskell XML parsers.
 It’s also based on the C expat library, which is supposed to be
 fast.</p>
-<p><img src="http://i.imgur.com/PznIjRs.png" /></p>
+<p>[image deleted due to region politics]</p>
 <pre><code>File   hexml     hexpat
 4KB    6.395 μs  320.3 μs
 31KB   9.474 μs  378.3 μs
@@ -13502,7 +13502,7 @@ We’re Haskellers, we like safety. I’ll keep my safe functions.</p>
 <p>I’d be remiss if I didn’t address the fact that Hexml does more
 useful things than we’ve done here. Hexml allocates a DOM for random
 access. Oh no! Allocation: Haskell’s worse enemy!</p>
-<p><img src="http://www.reactiongifs.com/r/rna.gif" /></p>
+<p>[image deleted due to region politics]</p>
 <p>We’ve seen that Haskell allocates a lot normally. Actually, have we
 looked at that properly?</p>
 <pre><code>Case                   Bytes  GCs  Check
@@ -13659,7 +13659,7 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb40-1"><a
 <p>So that works.</p>
 <h2 id="wrapping-up">Wrapping-up</h2>
 <p>The final results are in:</p>
-<p><img src="http://i.imgur.com/XgdZoQ9.png" /></p>
+<p>[image deleted due to region politics]</p>
 <p>And just to check that a 1MB file doesn’t give wildly different
 results:</p>
 <pre><code>benchmarking 1MB/hexml-dom
@@ -15442,7 +15442,6 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>λ<span class="op">&gt;</span> execWriter (<span class="kw">do</span> <span class="st">&quot;hello&quot;</span> ; <span class="st">&quot;world&quot;</span><span class="ot"> ::</span> <span class="dt">Writer</span> <span class="dt">String</span> ())</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;helloworld&quot;</span></span></code></pre></div>
-<p><img src="http://i.imgur.com/v4j4izS.gif"></p>
 <p>This instance is picked by GHC, as we hoped, because of the
 <code>a</code>. The instance method also type checks, because the
 constraint applies when type checking the instance methods, just like if
@@ -17268,11 +17267,10 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb41-1"><a
 and output something.</p>
 <h2 id="speed">Speed</h2>
 <p>Actually, despite having a trivial implementation, being a real monad
-and a monad transformer, it’s not far from Blaze. You can compare the <a
-href="http://imgur.com/a/iyzBl">benchmark reports here</a>. A quick test
-of writing 38M of HTML to file yielded the same speed (about 1.5s) for
-both Lucid and Blaze. With such decent performance for very little work
-I’m already ready to start using it for real work.</p>
+and a monad transformer, it’s not far from Blaze. A quick test of
+writing 38M of HTML to file yielded the same speed (about 1.5s) for both
+Lucid and Blaze. With such decent performance for very little work I’m
+already ready to start using it for real work.</p>
 <h2 id="summary">Summary</h2>
 <p>So the point of this post was really to explain <em>why another HTML
 DSL</em> and I hope I did that well enough.</p>

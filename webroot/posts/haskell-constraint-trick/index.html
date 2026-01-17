@@ -198,7 +198,6 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>λ<span class="op">&gt;</span> execWriter (<span class="kw">do</span> <span class="st">&quot;hello&quot;</span> ; <span class="st">&quot;world&quot;</span><span class="ot"> ::</span> <span class="dt">Writer</span> <span class="dt">String</span> ())</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;helloworld&quot;</span></span></code></pre></div>
-<p><img src="http://i.imgur.com/v4j4izS.gif"></p>
 <p>This instance is picked by GHC, as we hoped, because of the
 <code>a</code>. The instance method also type checks, because the
 constraint applies when type checking the instance methods, just like if

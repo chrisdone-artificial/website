@@ -540,8 +540,7 @@ output something.
 ## Speed
 
 Actually, despite having a trivial implementation, being a real monad
-and a monad transformer, it's not far from Blaze. You can compare the
-[benchmark reports here](http://imgur.com/a/iyzBl). A quick test of
+and a monad transformer, it's not far from Blaze. A quick test of
 writing 38M of HTML to file yielded the same speed (about 1.5s) for
 both Lucid and Blaze. With such decent performance for very little
 work I'm already ready to start using it for real work.
