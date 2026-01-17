@@ -230,8 +230,6 @@ True
 False
 ```
 
-![](http://i.imgur.com/RfXKwQ3.gif)
-
 ## Use-case 3: Get the constructor of a value
 
 We have the method
@@ -305,8 +303,6 @@ this function:
 fromConstrB :: forall a. Data a
             => (forall d. Data d => d) -> Constr -> a
 ```
-
-![](http://i.imgur.com/vs9AG.gif)
 
 Haskell beginners: Don't fear the rank-N type. What it's saying is
 merely that the `fromConstrB` function determines what the type of `d`
@@ -383,8 +379,6 @@ Foo 5 'b'
 In other words, keep an index starting at 0. Increase it each
 iteration that `fromConstrM` does. When we're at index 0, return an
 `Int`, when we're at index 1, return a `Char`. Easy! Right?
-
-![](http://i.imgur.com/HfAq4.gif)
 
 ## Use-case 6: mapping over data structures generically
 

@@ -283,7 +283,6 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="dt">True</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>λ<span class="op">&gt;</span> isAlgType (dataTypeOf <span class="ch">&#39;a&#39;</span>)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="dt">False</span></span></code></pre></div>
-<p><img src="http://i.imgur.com/RfXKwQ3.gif" /></p>
 <h2 id="use-case-3-get-the-constructor-of-a-value">Use-case 3: Get the
 constructor of a value</h2>
 <p>We have the method</p>
@@ -335,7 +334,6 @@ this function:</p>
 <div class="sourceCode" id="cb23"><pre
 class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ot">fromConstrB ::</span> <span class="kw">forall</span> a<span class="op">.</span> <span class="dt">Data</span> a</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>            <span class="ot">=&gt;</span> (<span class="kw">forall</span> d<span class="op">.</span> <span class="dt">Data</span> d <span class="ot">=&gt;</span> d) <span class="ot">-&gt;</span> <span class="dt">Constr</span> <span class="ot">-&gt;</span> a</span></code></pre></div>
-<p><img src="http://i.imgur.com/vs9AG.gif" /></p>
 <p>Haskell beginners: Don’t fear the rank-N type. What it’s saying is
 merely that the <code>fromConstrB</code> function determines what the
 type of <code>d</code> will be by itself, by looking at
@@ -394,7 +392,6 @@ class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb29-1"><a
 iteration that <code>fromConstrM</code> does. When we’re at index 0,
 return an <code>Int</code>, when we’re at index 1, return a
 <code>Char</code>. Easy! Right?</p>
-<p><img src="http://i.imgur.com/HfAq4.gif" /></p>
 <h2 id="use-case-6-mapping-over-data-structures-generically">Use-case 6:
 mapping over data structures generically</h2>
 <p>A common thing to want is to map over a value in a
