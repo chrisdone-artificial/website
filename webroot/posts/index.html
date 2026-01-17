@@ -12,6 +12,15 @@
       font-family: serif;
       line-height: 1.5;
       }
+      .year-latter {
+          padding-top: 2em;
+      }
+      .date { font-family: sans-serif; color: #888989 }
+            .year-heading {
+          font-weight: bold;
+          font-family: sans-serif;
+          font-size: 25px;
+      }
       pre, code {
       font-size: 16px;
       word-wrap: break-word;
@@ -21,7 +30,8 @@
       line-height: 1.5em;
       }
       a {
-      color: #1a6e8e
+          color: #1a6e8e;
+          text-decoration: none;
       }
       .menu a {
       margin-right: 1em;
@@ -76,16 +86,17 @@
       color: #666
       }
       @media(max-width:767px){
-      body { margin: 1px 4px; }
-      h1, h2, .menu { margin: 0; }
-      h1 { font-size: 1.5em; }
-      h2 { font-size: 1.125em; }
-      h3 { font-size: 1.0125em; }
-      .menu a { margin-right: 0.1em; }
-      #archive { margin-left: 1em; margin-top: 0; padding: 0}
-      #archive .post-1, #archive .post-2 {
-      margin-bottom: 0.1em;
-      }
+        body { margin: 1px 4px; }
+        h1, h2, .menu { margin: 0; }
+        h1 { font-size: 1.5em; }
+        h2 { font-size: 1.125em; }
+        h3 { font-size: 1.0125em; }
+        .menu a { margin-right: 0.1em; }
+        #archive { margin-left: 0; margin-top: 0; padding: 0}
+        #archive .post-1, #archive .post-2 {
+        margin-bottom: 0.1em;
+        }
+        td { vertical-align: top }
       }
       .footnote-ref { text-decoration: none; }
     </style>
@@ -97,10 +108,15 @@
 
 <table id="archive" style="line-height:2em">
 <tr>
+<td colspan="2" class="year-heading ">
+2025
+</td>
+</tr>
+<tr>
 <td>
 <a href='laws'>Laws
 </td>
-<td>
+<td class="date">
 2025-09-23
 </td>
 </tr>
@@ -108,7 +124,7 @@
 <td>
 <a href='argumentum-ad-colossum'>Argumentum ad colossum
 </td>
-<td>
+<td class="date">
 2025-09-14
 </td>
 </tr>
@@ -116,7 +132,7 @@
 <td>
 <a href='applicative-wired-monad'>Applicative-wired monad pattern
 </td>
-<td>
+<td class="date">
 2025-07-11
 </td>
 </tr>
@@ -124,7 +140,7 @@
 <td>
 <a href='pi-blog'>My blog now runs on a Raspberry Pi at home
 </td>
-<td>
+<td class="date">
 2025-05-09
 </td>
 </tr>
@@ -132,7 +148,7 @@
 <td>
 <a href='llms'>LLMs
 </td>
-<td>
+<td class="date">
 2025-04-18
 </td>
 </tr>
@@ -140,7 +156,7 @@
 <td>
 <a href='the-llm-curse'>The LLM Curse
 </td>
-<td>
+<td class="date">
 2025-04-12
 </td>
 </tr>
@@ -148,7 +164,7 @@
 <td>
 <a href='less-than-estimation'>Less-Than Estimation
 </td>
-<td>
+<td class="date">
 2025-02-04
 </td>
 </tr>
@@ -156,7 +172,7 @@
 <td>
 <a href='code-register'>Registers of code authoring
 </td>
-<td>
+<td class="date">
 2025-02-01
 </td>
 </tr>
@@ -164,15 +180,20 @@
 <td>
 <a href='hell-year-in-review-2025'>Hell (Haskell shell): Year in Review
 </td>
-<td>
+<td class="date">
 2025-01-12
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2024
 </td>
 </tr>
 <tr>
 <td>
 <a href='variants'>Adding sum types (variants) to Hell
 </td>
-<td>
+<td class="date">
 2024-11-23
 </td>
 </tr>
@@ -180,7 +201,7 @@
 <td>
 <a href='htmx-critique'>A modest critique of Htmx
 </td>
-<td>
+<td class="date">
 2024-08-20
 </td>
 </tr>
@@ -188,7 +209,7 @@
 <td>
 <a href='naming-is-hard'>Naming sum types is often hard
 </td>
-<td>
+<td class="date">
 2024-07-09
 </td>
 </tr>
@@ -196,7 +217,7 @@
 <td>
 <a href='portals'>Portals in Emacs
 </td>
-<td>
+<td class="date">
 2024-06-17
 </td>
 </tr>
@@ -204,7 +225,7 @@
 <td>
 <a href='projects'>All my projects (2008-2023)
 </td>
-<td>
+<td class="date">
 2024-05-12
 </td>
 </tr>
@@ -213,7 +234,7 @@
 <a href='halogen-is-better-than-react'>Halogen is better than React at
 everything
 </td>
-<td>
+<td class="date">
 2024-02-23
 </td>
 </tr>
@@ -222,31 +243,36 @@ everything
 <a href='death-of-rss-greatly-exaggerated'>Reports of RSS/Atom’s death
 are greatly exaggerated
 </td>
-<td>
+<td class="date">
 2024-02-16
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2023
 </td>
 </tr>
 <tr>
 <td>
 <a href='hell'>Hell: Shell scripting Haskell dialect
 </td>
-<td>
+<td class="date">
 2023-12-26
-</td>
-</tr>
-<tr>
-<td>
-<a href='codebases-and-love'>Codebases and love
-</td>
-<td>
-2023-10-04
 </td>
 </tr>
 <tr>
 <td>
 <a href='spectrum-web-dev-htmx-react'>A spectrum of web dev abstraction
 </td>
+<td class="date">
+2023-10-04
+</td>
+</tr>
+<tr>
 <td>
+<a href='codebases-and-love'>Codebases and love
+</td>
+<td class="date">
 2023-10-04
 </td>
 </tr>
@@ -254,7 +280,7 @@ are greatly exaggerated
 <td>
 <a href='ai-machine-thinking'>AI and Machine Thinking
 </td>
-<td>
+<td class="date">
 2023-09-23
 </td>
 </tr>
@@ -263,23 +289,23 @@ are greatly exaggerated
 <a href='browser-pickling'>Pickling: The really obvious missing feature
 of all web browsers
 </td>
-<td>
+<td class="date">
 2023-09-07
-</td>
-</tr>
-<tr>
-<td>
-<a href='reasoning-violently'>Reasoning violently
-</td>
-<td>
-2023-08-04
 </td>
 </tr>
 <tr>
 <td>
 <a href='tamagotchi-tooling'>Tamagotchi tooling
 </td>
+<td class="date">
+2023-08-04
+</td>
+</tr>
+<tr>
 <td>
+<a href='reasoning-violently'>Reasoning violently
+</td>
+<td class="date">
 2023-08-04
 </td>
 </tr>
@@ -288,8 +314,13 @@ of all web browsers
 <a href='three-questions-of-lang-design'>Three questions of language
 design
 </td>
-<td>
+<td class="date">
 2023-01-07
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2022
 </td>
 </tr>
 <tr>
@@ -297,7 +328,7 @@ design
 <a href='things-ive-changed-my-mind-on'>Things I’ve changed my mind
 about
 </td>
-<td>
+<td class="date">
 2022-12-20
 </td>
 </tr>
@@ -305,7 +336,7 @@ about
 <td>
 <a href='inflex'>Inflex
 </td>
-<td>
+<td class="date">
 2022-10-21
 </td>
 </tr>
@@ -313,7 +344,7 @@ about
 <td>
 <a href='ipp'>Immutable Publishing Policy
 </td>
-<td>
+<td class="date">
 2022-02-11
 </td>
 </tr>
@@ -322,7 +353,7 @@ about
 <a href='monads'>A plain English description of monads without Haskell
 code
 </td>
-<td>
+<td class="date">
 2022-01-31
 </td>
 </tr>
@@ -330,15 +361,20 @@ code
 <td>
 <a href='typeclass-implementation'>Thoughts on type class implementation
 </td>
-<td>
+<td class="date">
 2022-01-09
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2021
 </td>
 </tr>
 <tr>
 <td>
 <a href='rust'>My negative views on Rust
 </td>
-<td>
+<td class="date">
 2021-12-22
 </td>
 </tr>
@@ -346,7 +382,7 @@ code
 <td>
 <a href='inflex-bibliography'>Inflex Bibliography
 </td>
-<td>
+<td class="date">
 2021-09-08
 </td>
 </tr>
@@ -354,7 +390,7 @@ code
 <td>
 <a href='the-movement-principle'>The Movement Principle
 </td>
-<td>
+<td class="date">
 2021-04-10
 </td>
 </tr>
@@ -363,7 +399,7 @@ code
 <a href='whats-wrong-with-implicitparams'>What’s wrong with
 ImplicitParams
 </td>
-<td>
+<td class="date">
 2021-03-20
 </td>
 </tr>
@@ -371,15 +407,20 @@ ImplicitParams
 <td>
 <a href='exceptt-vs-early-do'>How exactly ExceptT differs to EarlyDo
 </td>
-<td>
+<td class="date">
 2021-01-05
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2020
 </td>
 </tr>
 <tr>
 <td>
 <a href='haskell-doesnt-have-macros'>Haskell doesn’t have macros
 </td>
-<td>
+<td class="date">
 2020-12-29
 </td>
 </tr>
@@ -387,23 +428,23 @@ ImplicitParams
 <td>
 <a href='is-try-do-dangerous'>Is it Try.do that is dangerous?
 </td>
-<td>
+<td class="date">
 2020-12-24
-</td>
-</tr>
-<tr>
-<td>
-<a href='try-do'>Try.do for recoverable errors in Haskell
-</td>
-<td>
-2020-12-21
 </td>
 </tr>
 <tr>
 <td>
 <a href='recoverable-errors-in-haskell'>Recoverable errors in Haskell
 </td>
+<td class="date">
+2020-12-21
+</td>
+</tr>
+<tr>
 <td>
+<a href='try-do'>Try.do for recoverable errors in Haskell
+</td>
+<td class="date">
 2020-12-21
 </td>
 </tr>
@@ -412,7 +453,7 @@ ImplicitParams
 <a href='import-aliases-field-names'>Use import aliases to easily access
 fields
 </td>
-<td>
+<td class="date">
 2020-12-15
 </td>
 </tr>
@@ -421,7 +462,7 @@ fields
 <a href='language-of-spreadsheets-is-bad'>The language of spreadsheets
 is bad
 </td>
-<td>
+<td class="date">
 2020-11-13
 </td>
 </tr>
@@ -429,16 +470,13 @@ is bad
 <td>
 <a href='whats-wrong-with-the-grid'>What’s wrong with the grid?
 </td>
-<td>
+<td class="date">
 2020-11-12
 </td>
 </tr>
 <tr>
-<td>
-<a href='defaulting-fields-in-a-record'>Defaulting fields in a record
-</td>
-<td>
-2019-12-07
+<td colspan="2" class="year-heading year-latter">
+2019
 </td>
 </tr>
 <tr>
@@ -446,7 +484,15 @@ is bad
 <a href='ghost-of-departed-proofs-conveniences'>Ghosts of Departed
 Proofs Convenience
 </td>
+<td class="date">
+2019-12-07
+</td>
+</tr>
+<tr>
 <td>
+<a href='defaulting-fields-in-a-record'>Defaulting fields in a record
+</td>
+<td class="date">
 2019-12-07
 </td>
 </tr>
@@ -455,7 +501,7 @@ Proofs Convenience
 <a href='statically-checked-overloaded-strings'>Statically Checked
 Overloaded Strings
 </td>
-<td>
+<td class="date">
 2019-11-13
 </td>
 </tr>
@@ -464,7 +510,7 @@ Overloaded Strings
 <a href='static-smart-constructors'>Static Smart Constructors with
 Double Splices
 </td>
-<td>
+<td class="date">
 2019-08-22
 </td>
 </tr>
@@ -473,7 +519,7 @@ Double Splices
 <a href='clientside-programming-haskell'>Client-side web programming in
 Haskell: A retrospective
 </td>
-<td>
+<td class="date">
 2019-07-25
 </td>
 </tr>
@@ -481,7 +527,7 @@ Haskell: A retrospective
 <td>
 <a href='german-naming-convention'>German Naming Convention
 </td>
-<td>
+<td class="date">
 2019-06-07
 </td>
 </tr>
@@ -489,7 +535,7 @@ Haskell: A retrospective
 <td>
 <a href='dynamically-typed-haskell'>Dynamically typed Haskell
 </td>
-<td>
+<td class="date">
 2019-04-06
 </td>
 </tr>
@@ -497,15 +543,20 @@ Haskell: A retrospective
 <td>
 <a href='web-engines'>Web engines in Haskell
 </td>
-<td>
+<td class="date">
 2019-04-05
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2018
 </td>
 </tr>
 <tr>
 <td>
 <a href='lazy-list-length'>Lazy list length
 </td>
-<td>
+<td class="date">
 2018-08-23
 </td>
 </tr>
@@ -513,8 +564,13 @@ Haskell: A retrospective
 <td>
 <a href='type-inequality-operator'>Type inequality operator
 </td>
-<td>
+<td class="date">
 2018-06-19
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2017
 </td>
 </tr>
 <tr>
@@ -522,16 +578,26 @@ Haskell: A retrospective
 <a href='fast-haskell-c-parsing-xml'>Fast Haskell: Competing with C at
 parsing XML
 </td>
-<td>
+<td class="date">
 2017-01-11
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2016
 </td>
 </tr>
 <tr>
 <td>
 <a href='hindent-5'>hindent 5: One style to rule them all
 </td>
-<td>
+<td class="date">
 2016-08-29
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2015
 </td>
 </tr>
 <tr>
@@ -539,7 +605,7 @@ parsing XML
 <a href='haskell-lisp-philosophy-difference'>A philosophical difference
 between Haskell and Lisp
 </td>
-<td>
+<td class="date">
 2015-12-19
 </td>
 </tr>
@@ -547,7 +613,7 @@ between Haskell and Lisp
 <td>
 <a href='haskell-repl'>Use the REPL, Luke
 </td>
-<td>
+<td class="date">
 2015-07-15
 </td>
 </tr>
@@ -555,7 +621,7 @@ between Haskell and Lisp
 <td>
 <a href='path-package'>The path package
 </td>
-<td>
+<td class="date">
 2015-06-27
 </td>
 </tr>
@@ -563,7 +629,7 @@ between Haskell and Lisp
 <td>
 <a href='existentials'>Existentials and the heterogenous list fallacy
 </td>
-<td>
+<td class="date">
 2015-06-21
 </td>
 </tr>
@@ -571,7 +637,7 @@ between Haskell and Lisp
 <td>
 <a href='haskell-constraint-trick'>The constraint trick for instances
 </td>
-<td>
+<td class="date">
 2015-06-19
 </td>
 </tr>
@@ -580,7 +646,7 @@ between Haskell and Lisp
 <a href='stream-composability'>Stream fusion and composability (Java 8
 and Haskell) for newbies
 </td>
-<td>
+<td class="date">
 2015-06-11
 </td>
 </tr>
@@ -588,7 +654,7 @@ and Haskell) for newbies
 <td>
 <a href='haskell-wishlist'>My Haskell tooling wishlist
 </td>
-<td>
+<td class="date">
 2015-01-24
 </td>
 </tr>
@@ -596,23 +662,28 @@ and Haskell) for newbies
 <td>
 <a href='measuring-duration-in-haskell'>Measuring duration in Haskell
 </td>
-<td>
+<td class="date">
 2015-01-05
 </td>
 </tr>
 <tr>
-<td>
-<a href='lucid2'>Lucid 2.0: clearer than before
-</td>
-<td>
-2014-11-20
+<td colspan="2" class="year-heading year-latter">
+2014
 </td>
 </tr>
 <tr>
 <td>
 <a href='lucid'>Lucid: templating DSL for HTML
 </td>
+<td class="date">
+2014-11-20
+</td>
+</tr>
+<tr>
 <td>
+<a href='lucid2'>Lucid 2.0: clearer than before
+</td>
+<td class="date">
 2014-11-20
 </td>
 </tr>
@@ -620,7 +691,7 @@ and Haskell) for newbies
 <td>
 <a href='postgresql-pagination'>Fast pagination on PostgreSQL
 </td>
-<td>
+<td class="date">
 2014-10-28
 </td>
 </tr>
@@ -629,23 +700,23 @@ and Haskell) for newbies
 <a href='shell-conduit'>shell-conduit: Write shell scripts in Haskell
 with Conduit
 </td>
-<td>
+<td class="date">
 2014-09-21
-</td>
-</tr>
-<tr>
-<td>
-<a href='hindent'>hindent: A Haskell indenter
-</td>
-<td>
-2014-09-20
 </td>
 </tr>
 <tr>
 <td>
 <a href='formatting'>Formatting in Haskell
 </td>
+<td class="date">
+2014-09-20
+</td>
+</tr>
+<tr>
 <td>
+<a href='hindent'>hindent: A Haskell indenter
+</td>
+<td class="date">
 2014-09-20
 </td>
 </tr>
@@ -653,7 +724,7 @@ with Conduit
 <td>
 <a href='teaching'>Teaching: A good (and bad) example
 </td>
-<td>
+<td class="date">
 2014-07-19
 </td>
 </tr>
@@ -661,7 +732,7 @@ with Conduit
 <td>
 <a href='haskell-lang'>An alternative Haskell home page
 </td>
-<td>
+<td class="date">
 2014-05-29
 </td>
 </tr>
@@ -669,7 +740,7 @@ with Conduit
 <td>
 <a href='presentations-update'>Presentations update
 </td>
-<td>
+<td class="date">
 2014-04-30
 </td>
 </tr>
@@ -677,7 +748,7 @@ with Conduit
 <td>
 <a href='identity-monad'>The Identity monad trick
 </td>
-<td>
+<td class="date">
 2014-04-29
 </td>
 </tr>
@@ -685,7 +756,7 @@ with Conduit
 <td>
 <a href='the-printer-haskell-deserves'>The printer Haskell deserves
 </td>
-<td>
+<td class="date">
 2014-04-26
 </td>
 </tr>
@@ -693,7 +764,7 @@ with Conduit
 <td>
 <a href='data-typeable'>Typeable and Data in Haskell
 </td>
-<td>
+<td class="date">
 2014-04-22
 </td>
 </tr>
@@ -701,7 +772,7 @@ with Conduit
 <td>
 <a href='haskell-diff'>Haskell structured diffs
 </td>
-<td>
+<td class="date">
 2014-04-01
 </td>
 </tr>
@@ -709,7 +780,7 @@ with Conduit
 <td>
 <a href='ghci-reload'>Reloading running code in GHCi
 </td>
-<td>
+<td class="date">
 2014-03-16
 </td>
 </tr>
@@ -717,7 +788,7 @@ with Conduit
 <td>
 <a href='attempto-controlled-english'>Attempto Controlled English
 </td>
-<td>
+<td class="date">
 2014-02-24
 </td>
 </tr>
@@ -725,7 +796,7 @@ with Conduit
 <td>
 <a href='emacs-mail'>Emacs, Notmuch and Offlineimap
 </td>
-<td>
+<td class="date">
 2014-02-08
 </td>
 </tr>
@@ -733,7 +804,7 @@ with Conduit
 <td>
 <a href='pure-io-tryhaskell'>Pure IO monad and Try Haskell
 </td>
-<td>
+<td class="date">
 2014-01-12
 </td>
 </tr>
@@ -741,8 +812,13 @@ with Conduit
 <td>
 <a href='dijkstra-haskell-java'>Dijkstra on Haskell and Java
 </td>
-<td>
+<td class="date">
 2014-01-08
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2013
 </td>
 </tr>
 <tr>
@@ -750,23 +826,23 @@ with Conduit
 <a href='emacs-users-are-like-igor'>Emacs users are like Terry
 Pratchett’s Igors
 </td>
-<td>
+<td class="date">
 2013-12-25
-</td>
-</tr>
-<tr>
-<td>
-<a href='structured-haskell-mode'>structured-haskell-mode
-</td>
-<td>
-2013-12-09
 </td>
 </tr>
 <tr>
 <td>
 <a href='recording-small-gifs'>Recording simple GIFs for demos
 </td>
+<td class="date">
+2013-12-09
+</td>
+</tr>
+<tr>
 <td>
+<a href='structured-haskell-mode'>structured-haskell-mode
+</td>
+<td class="date">
 2013-12-09
 </td>
 </tr>
@@ -774,7 +850,7 @@ Pratchett’s Igors
 <td>
 <a href='making-ghci-fast'>Making GHCi scale better and faster
 </td>
-<td>
+<td class="date">
 2013-11-20
 </td>
 </tr>
@@ -782,23 +858,23 @@ Pratchett’s Igors
 <td>
 <a href='twitter-problem-loeb'>Twitter waterflow problem and loeb
 </td>
-<td>
+<td class="date">
 2013-11-14
-</td>
-</tr>
-<tr>
-<td>
-<a href='god-mode'>God-mode for Emacs
-</td>
-<td>
-2013-09-21
 </td>
 </tr>
 <tr>
 <td>
 <a href='functional-programming-is-hard'>Functional Programming is Hard?
 </td>
+<td class="date">
+2013-09-21
+</td>
+</tr>
+<tr>
 <td>
+<a href='god-mode'>God-mode for Emacs
+</td>
+<td class="date">
 2013-09-21
 </td>
 </tr>
@@ -807,7 +883,7 @@ Pratchett’s Igors
 <a href='camelcase-vs-underscores-vs-hyphens'>CamelCase vs under_scores
 vs hyphenated-words
 </td>
-<td>
+<td class="date">
 2013-08-30
 </td>
 </tr>
@@ -815,7 +891,7 @@ vs hyphenated-words
 <td>
 <a href='emacs-key-analysis'>Analysis of Emacs keys pressed
 </td>
-<td>
+<td class="date">
 2013-08-07
 </td>
 </tr>
@@ -823,7 +899,7 @@ vs hyphenated-words
 <td>
 <a href='haskell-news'>Haskell News
 </td>
-<td>
+<td class="date">
 2013-07-26
 </td>
 </tr>
@@ -831,15 +907,20 @@ vs hyphenated-words
 <td>
 <a href='ircbrowse'>IRC Browse
 </td>
-<td>
+<td class="date">
 2013-07-23
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2012
 </td>
 </tr>
 <tr>
 <td>
 <a href='fay'>Fay, JavaScript, etc.
 </td>
-<td>
+<td class="date">
 2012-09-15
 </td>
 </tr>
@@ -848,7 +929,7 @@ vs hyphenated-words
 <a href='haskelldb-more-type-safe'>Making HaskellDB slightly more
 type-safe
 </td>
-<td>
+<td class="date">
 2012-08-25
 </td>
 </tr>
@@ -856,8 +937,13 @@ type-safe
 <td>
 <a href='blog-comments'>Comments on my blog
 </td>
-<td>
+<td class="date">
 2012-01-19
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2011
 </td>
 </tr>
 <tr>
@@ -865,7 +951,7 @@ type-safe
 <a href='ji-haskell-web'>Ji, a little library for controlling a web
 browser from Haskell
 </td>
-<td>
+<td class="date">
 2011-12-26
 </td>
 </tr>
@@ -874,7 +960,7 @@ browser from Haskell
 <a href='concept-for-editing-asts-rather-than-text'>A concept for
 editing code as an AST rather than text
 </td>
-<td>
+<td class="date">
 2011-12-17
 </td>
 </tr>
@@ -882,7 +968,7 @@ editing code as an AST rather than text
 <td>
 <a href='generic-map'>A map generic upon the value thanks to typeable
 </td>
-<td>
+<td class="date">
 2011-12-05
 </td>
 </tr>
@@ -890,7 +976,7 @@ editing code as an AST rather than text
 <td>
 <a href='haskelldb-tutorial'>HaskellDB: A long tutorial
 </td>
-<td>
+<td class="date">
 2011-11-06
 </td>
 </tr>
@@ -898,7 +984,7 @@ editing code as an AST rather than text
 <td>
 <a href='common-lisp-haskell'>Common Lisp/Haskell syntactic comparison
 </td>
-<td>
+<td class="date">
 2011-10-31
 </td>
 </tr>
@@ -906,16 +992,8 @@ editing code as an AST rather than text
 <td>
 <a href='boycott-head'>Deprecate Prelude.head and partial functions
 </td>
-<td>
+<td class="date">
 2011-10-17
-</td>
-</tr>
-<tr>
-<td>
-<a href='rankntypes'>Rank-N types, a simple DB example
-</td>
-<td>
-2011-10-16
 </td>
 </tr>
 <tr>
@@ -923,7 +1001,15 @@ editing code as an AST rather than text
 <a href='value-polymorphism'>“Value polymorphism”, simple explanation
 with examples
 </td>
+<td class="date">
+2011-10-16
+</td>
+</tr>
+<tr>
 <td>
+<a href='rankntypes'>Rank-N types, a simple DB example
+</td>
+<td class="date">
 2011-10-16
 </td>
 </tr>
@@ -932,7 +1018,7 @@ with examples
 <a href='ghcjs'>Experimenting with GHCJS, the Haskell→JavaScript
 compiler
 </td>
-<td>
+<td class="date">
 2011-08-20
 </td>
 </tr>
@@ -941,7 +1027,7 @@ compiler
 <a href='the-mythical-man-month-insights'>Some insights from The
 Mythical Man Month starting from Chapter 11
 </td>
-<td>
+<td class="date">
 2011-06-26
 </td>
 </tr>
@@ -949,7 +1035,7 @@ Mythical Man Month starting from Chapter 11
 <td>
 <a href='amb-list-monad'>‘amb’ operator and the list monad
 </td>
-<td>
+<td class="date">
 2011-04-10
 </td>
 </tr>
@@ -957,15 +1043,20 @@ Mythical Man Month starting from Chapter 11
 <td>
 <a href='hulk-haskell-irc-server'>Hulk: A Haskell IRC server
 </td>
-<td>
+<td class="date">
 2011-01-30
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2010
 </td>
 </tr>
 <tr>
 <td>
 <a href='lisk-lisp-haskell'>Lisk - Lisp and Haskell
 </td>
-<td>
+<td class="date">
 2010-11-25
 </td>
 </tr>
@@ -973,23 +1064,33 @@ Mythical Man Month starting from Chapter 11
 <td>
 <a href='duck-typing-in-haskell'>Duck typing in Haskell
 </td>
-<td>
+<td class="date">
 2010-11-22
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2009
 </td>
 </tr>
 <tr>
 <td>
 <a href='applicative-and-config-file'>Applicative and ConfigFile, HSQL
 </td>
-<td>
+<td class="date">
 2009-02-10
+</td>
+</tr>
+<tr>
+<td colspan="2" class="year-heading year-latter">
+2008
 </td>
 </tr>
 <tr>
 <td>
 <a href='lojbot'>Lojbot
 </td>
-<td>
+<td class="date">
 2008-12-18
 </td>
 </tr>
@@ -997,8 +1098,16 @@ Mythical Man Month starting from Chapter 11
 <td>
 <a href='kibro-shared-hosting'>Kibro on Shared Hosting
 </td>
-<td>
+<td class="date">
 2008-12-11
+</td>
+</tr>
+<tr>
+<td>
+<a href='kibro-lighttpd-fastcgi'>Kibro: Haskell, Lighttpd and FastCGI
+</td>
+<td class="date">
+2008-11-14
 </td>
 </tr>
 <tr>
@@ -1006,15 +1115,7 @@ Mythical Man Month starting from Chapter 11
 <a href='haskell-formlets'>Haskell Formlets: Composable web form
 construction and validation
 </td>
-<td>
-2008-11-14
-</td>
-</tr>
-<tr>
-<td>
-<a href='kibro-lighttpd-fastcgi'>Kibro: Haskell, Lighttpd and FastCGI
-</td>
-<td>
+<td class="date">
 2008-11-14
 </td>
 </tr>
@@ -1022,7 +1123,7 @@ construction and validation
 <td>
 <a href='new-kibro'>New Kibro
 </td>
-<td>
+<td class="date">
 2008-10-14
 </td>
 </tr>
@@ -1030,7 +1131,7 @@ construction and validation
 <td>
 <a href='kibro-refactoring'>Kibro refactoring
 </td>
-<td>
+<td class="date">
 2008-10-12
 </td>
 </tr>
@@ -1038,7 +1139,7 @@ construction and validation
 <td>
 <a href='ghci-on-acid'>GHCi on Acid
 </td>
-<td>
+<td class="date">
 2008-08-01
 </td>
 </tr>

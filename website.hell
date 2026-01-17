@@ -43,7 +43,15 @@ generatePosts = do
 --
 generateArchive = \posts -> do
   Text.putStrLn "Generating archive ..."
-  let rows =
+  let year = Text.take 4
+  let years =
+        List.groupBy (\(_p, d1, _t, _c)
+                         (_p, d2, _t, _c)
+                         -> Eq.eq (year d1) (year d2))
+        $ List.reverse
+        $ List.sortOn (\(post, date, title, content) -> date)
+        posts
+  let rows = \posts ->
         Text.concat
           $ List.map
             (\(post, date, title, content) ->
@@ -52,19 +60,34 @@ generateArchive = \posts -> do
                  Main.filename post,
                  "'>",
                  Main.strip title,
-                 "</td><td>",
+                 "</td><td class='date'>",
                  date,
                  "</td></tr>"
                ])
             $ List.reverse
             $ List.sortOn (\(post, date, title, content) -> date)
             $ posts
+  let tablesByYear =
+        List.map
+          (\(i, posts) -> do
+           let yr = Text.concat $ List.take 1 $ List.map
+                  (\(post, date, title, content) -> date)
+                  posts
+           let nth = if Eq.eq 0 i then "" else "year-latter"
+           Text.concat [
+             "<tr><td colspan=2 class='year-heading " <> nth <> "'>" <> year yr <> "</td></tr>",
+             rows posts
+
+            ]
+           )
+                 (List.zip (List.iterate' (Int.plus 1) 0)
+                           years)
   let table = Text.concat [
         "---\n",
         "title: Archive\n",
         "---\n",
         "<table id='archive' style='line-height:2em'>",
-        rows,
+        Text.concat tablesByYear,
         "</table>"
         ]
   (out, err) <-
