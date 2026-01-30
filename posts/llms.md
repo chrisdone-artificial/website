@@ -18,8 +18,8 @@ It's quite easy to get reliable outputs.
 I intend to dabble more with this in coming weeks.
 
 I've been recently thinking that the whole phrasing around interacting with LLMs has become increasingly anthropomorphic,
-and thought of a clever mental hack to avoid it: instead of "talking to Claude," say "talking to the computer,"
-and instead of "AI generated" or "LLM generated," simply say "computer generated." 
+and thought of a clever mental hack to avoid it: instead of "talking to Claude," say "talking to the computer," (doesn't that sound silly!)
+and instead of "AI generated" or "LLM generated," simply say "computer generated." (How dull!)
 I find it thoroughly cuts through the illusion that we are doing anything more. But YMMV.
 
 # 2025-12-20
