@@ -11,7 +11,7 @@ AI summer, driven by LLMs.
 
 A [paper](https://arxiv.org/abs/2601.20245) discusses a similar topic that I've addressed in this microblog, which is the negative relationship between skill and using GenAI.
 
-I haven't vibed anything since the last update. But I wrote a little [experimental library that uses a free applicative to both declare a GBNF grammar and consume the output back into Haskell](https://github.com/chrisdone-artificial/llm-parse).
+I haven't generated anything since the last update. But I hand wrote a little [experimental library that uses a free applicative to both declare a GBNF grammar and consume the output back into Haskell](https://github.com/chrisdone-artificial/llm-parse).
 I didn’t add an `Alternative` instance (yet) to support disjunction in the grammar, but this direction appeals to me.
 I’ve been dabbling with the same llama3.2 (3b model) via llama.cpp’s server locally on the same MacBook Pro M4 Max. 
 It's quite easy to get reliable outputs. 
