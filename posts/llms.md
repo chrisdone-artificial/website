@@ -7,6 +7,21 @@ tags: ai
 This page serves as my place to journal what are hopefully balanced thoughts on the current 
 AI summer, driven by LLMs.
 
+# 2026-01-30
+
+A [paper](https://arxiv.org/abs/2601.20245) discusses a similar topic that I've addressed in this microblog, which is the negative relationship between skill and using GenAI.
+
+I haven't vibed anything since the last update. But I wrote a little [experimental library that uses a free applicative to both declare a GBNF grammar and consume the output back into Haskell](https://github.com/chrisdone-artificial/llm-parse).
+I didn’t add an `Alternative` instance (yet) to support disjunction in the grammar, but this direction appeals to me.
+I’ve been dabbling with the same llama3.2 (3b model) via llama.cpp’s server locally on the same MacBook Pro M4 Max. 
+It's quite easy to get reliable outputs. 
+I intend to dabble more with this in coming weeks.
+
+I've been recently thinking that the whole phrasing around interacting with LLMs has become increasingly anthropomorphic,
+and thought of a clever mental hack to avoid it: instead of "talking to Claude," say "talking to the computer,"
+and instead of "AI generated" or "LLM generated," simply say "computer generated." 
+I find it thoroughly cuts through the illusion that we are doing anything more. But YMMV.
+
 # 2025-12-20
 
 Another positive experience I've had with LLMs is finding an opportunity to redo the frontend of a fairly simple web app, 
