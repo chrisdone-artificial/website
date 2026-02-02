@@ -1,7 +1,6 @@
 ---
 date: 2026-02-02
-title: Proposal: JSON with sum types (polymorphic variants)
-description: Proposal: JSON with sum types (poly variants)
+title: Proposal to extend JSON with sum types (variants)
 ---
 
 A small syntactical addition that I propose to add to JSON is variants. 
