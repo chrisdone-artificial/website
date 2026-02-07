@@ -7,6 +7,21 @@ tags: ai
 This page serves as my place to journal what are hopefully balanced thoughts on the current 
 AI summer, driven by LLMs.
 
+# 2026-02-07
+
+I shared a thought on a big dev call at work, when talking about agentic "skill" based workflows, that one problem is that you
+lose Flow, which is often one of the most enjoyable ways to work as a software dev (most of the rest is frankly frustration and toil, but valuable).
+Today I saw [this post](https://haskellforall.com/2026/02/beyond-agentic-coding) by Gabriella Gonzalez about the same topic, with examples of interfaces that try to do a better job of that. I'm not as gung ho about LLMs as Gabriella is, but I'm enjoying these simple articles that discuss a particular technical point. 
+
+This way of thinking has been on my mind for some time, as generally I am always working to reduce
+feedback loops in my work, never increase them. (This doesn't follow from using Emacs, but Emacs can help with that: look at magit.)
+It's why slow CI ruins my day, and why most cloud ops like Terraform are painful (e.g. Amazon resources aren't content addressable,
+so checking for changes to apply is always O(n)--brutal!).
+
+Separately, but somewhat related; arguably, there's a certain [psychogeography](https://en.wikipedia.org/wiki/Psychogeography) to "walking around" a codebase when doing an update or refactor,
+taking the scenic route reminds you of the landscape and dark alley ways, it activates and gently tickles parts of your brain in a way
+that I imagine is valuable for the larger work, which is an experience removed by being teleported from A-Z.
+
 # 2026-01-30
 
 A [paper](https://arxiv.org/abs/2601.20245) discusses a similar topic that I've addressed in this microblog, which is the negative relationship between skill and using GenAI.
