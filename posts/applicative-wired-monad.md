@@ -47,12 +47,11 @@ and are specialized on a particular type. Sometimes the type isn't actually an `
 but is similar in spirit (e.g. DB libraries often have `Expr a` returned by `Query a` monad).
 
 ```haskell
-{-# LANGUAGE KindSignatures, BlockArguments #-}
-{-# language GADTs, LambdaCase, GeneralizedNewtypeDeriving #-}
+{-# language KindSignatures, BlockArguments, GADTs, LambdaCase, GeneralizedNewtypeDeriving #-}
+import Data.Functor.Coyoneda
 import Data.Kind
 import Data.Functor.Const
 import Control.Monad.Free
-import Control.Applicative.Free
 import qualified Data.ByteString as S
 import qualified Data.ByteString.Char8 as S8
 import Data.Functor.Identity
@@ -69,11 +68,11 @@ import Control.Monad.Trans.State.Strict
 data Spec f m a where
   Spec :: String -> f (m a) -> Spec f m (f a)
 
-newtype Action f m a = Action { runAction :: Free (Ap (Spec f m)) a }
+newtype Action f m a = Action { runAction :: Free (Coyoneda (Spec f m)) a }
   deriving (Functor, Applicative, Monad)
 
 act :: String -> f (m a) -> Action f m (f a)
-act l f = Action $ liftF $ liftAp $ Spec l f
+act l f = Action $ liftF $ liftCoyoneda $ Spec l f
 
 --------------------------------------------------------------------------------
 -- An example
@@ -88,7 +87,7 @@ example = do
 -- IO interpretation
 
 runIO :: Action Identity IO a -> IO a
-runIO = foldFree (runAp io) . runAction where
+runIO = foldFree (lowerCoyoneda . hoistCoyoneda io) . runAction where
   io :: Spec Identity IO x -> IO x
   io = \case
     Spec name act' -> do
@@ -110,7 +109,7 @@ runGraph x = flip runState mempty $ graph $ do
   act "root" (pure <$> v)
 
 graph :: Action Value m a -> State (Map String (Set String)) a
-graph = foldFree (runAp go) . runAction where
+graph = foldFree (lowerCoyoneda . hoistCoyoneda go) . runAction where
   go :: Spec Value m a -> State (Map String (Set String)) a
   go = \case
    Spec string i -> do
@@ -120,8 +119,6 @@ graph = foldFree (runAp go) . runAction where
 keys ::  Value a -> Set String
 keys = getConst . runValue
 ```
-
-(Thanks to Liam Goodacre for his suggestion to eliminate the inlined Coyoneda.)
 
 Example:
 
@@ -140,3 +137,6 @@ Example:
 -- > runGraph example
 -- (fromList ["root"],fromList [("read_file_1",fromList []),("read_file_2",fromList ["read_file_1"]),("root",fromList ["read_file_1","read_file_2"])])
 ```
+
+Thanks to Liam Goodacre for his suggestion to eliminate the earlier inlined Coyoneda in my example.
+Thanks to Jack Kelly for his suggestion to use a `Coyoneda` rather than free-Applicative, as this example doesn't need it.
