@@ -58,7 +58,7 @@ generateArchive = \posts -> do
               Text.concat [
                  "<tr><td><a href='",
                  Main.filename post,
-                 "'>",
+                 "/'>",
                  Main.strip title,
                  "</td><td class='date'>",
                  date,
